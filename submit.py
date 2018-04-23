@@ -7,33 +7,7 @@ import re
 import subprocess
 from helperstuff.submitjob import submitjob
 
-g2decay = 1.663195
-g4decay = 2.55502
-g1prime2decay_gen = -12110.20   #for the sample
-g1prime2decay_reco = 12110.20   #for discriminants
-ghzgs1prime2decay_gen = -7613.351302119843
-ghzgs1prime2decay_reco = 7613.351302119843
-
-g2VBF = 0.271965
-g4VBF = 0.297979
-g1prime2VBF_gen = -2158.21
-g1prime2VBF_reco = 2158.21
-ghzgs1prime2VBF_gen = -4091.051456694223
-ghzgs1prime2VBF_reco = 4091.051456694223
-
-g2ZH = 0.112481
-g4ZH = 0.144057
-g1prime2ZH_gen = -517.788
-g1prime2ZH_reco = 517.788
-ghzgs1prime2ZH_gen = -642.9534550379002
-ghzgs1prime2ZH_reco = 642.9534550379002
-
-g2WH = 0.0998956
-g4WH = 0.1236136
-g1prime2WH_gen = -525.274
-g1prime2WH_reco = 525.274
-ghzgs1prime2WH_gen = -1
-ghzgs1prime2WH_reco = 1
+import constants
 
 here = os.path.abspath(os.path.dirname(__file__))
 
@@ -51,6 +25,8 @@ class Sample(object):
 
     if self.productionmode == "ggH":
       result += ["Interf=0"]
+    elif self.productionmode == "HWW":
+      result += ["DecayMode1=11", "DecayMode2=11"]
     elif self.productionmode == "VBF":
       result += ["Process=60", "deltaRcut=0"]
       if self.hypothesis == "L1Zg":
@@ -87,7 +63,7 @@ class Sample(object):
 
   def couplingvalue(self, coupling):
     if coupling == "a1": return 1
-    return globals()[self.constantscoupling(coupling)+self.productionmode.replace("ggH", "decay") + ("_gen" if "L1" in coupling else "")]
+    return getattr(constants, self.constantscoupling(coupling)+self.productionmode.replace("ggH", "decay"))
 
   @property
   def couplings(self):
@@ -134,7 +110,7 @@ class Sample(object):
     submitjob(
       jobtext = jobtext,
       jobname = self.jobname,
-      jobtime = "2-0:0:0" if self.productionmode == "ggH" else "1-0:0:0",
+      jobtime = "2-0:0:0" if self.productionmode in "ggH HWW" else "1-0:0:0",
       outputfile = self.outputfile,
       email = True,
     )
@@ -158,9 +134,9 @@ class Sample(object):
 
 def main(whattodo):
   kwargs = {}
-  for kwargs["productionmode"] in "VBF", "ZH", "WH", "ggH":
+  for kwargs["productionmode"] in "VBF", "ZH", "WH", "ggH", "HWW":
     for kwargs["hypothesis"] in "a1", "a2", "a3", "L1", "L1Zg", "a1a2", "a1a3", "a1L1", "a1L1Zg", "a2a3", "a2L1", "a2L1Zg", "a3L1", "a3L1Zg", "L1L1Zg":
-      if "L1Zg" in kwargs["hypothesis"] and kwargs["productionmode"] == "WH": continue
+      if "L1Zg" in kwargs["hypothesis"] and kwargs["productionmode"] in ("WH", "HWW"): continue
 
       if whattodo == "submit":
         for kwargs["index"] in range(1, 20 if kwargs["productionmode"] in ("ZH", "WH") else 2):
