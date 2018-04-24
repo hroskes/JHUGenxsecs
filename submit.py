@@ -19,11 +19,11 @@ class Sample(object):
 
   def commandline(self, dryrun=False):
     result = [os.path.join(here, "..", "JHUGen")]
-    result += ["Unweighted=0", "VegasNc0=99999999", "VegasNc1=99999999", "VegasNc2=99999999", "PDFSet=3"]
+    result += ["Unweighted=0", "VegasNc0=99999999", "VegasNc1=99999999", "VegasNc2=99999999", "PDFSet=3", "DataFile=output.lhe"]
     if dryrun:
       result += ["DryRun"]
 
-    if self.productionmode == "ggH":
+    if self.productionmode == "HZZ":
       result += ["Interf=0"]
     elif self.productionmode == "HWW":
       result += ["DecayMode1=11", "DecayMode2=11"]
@@ -63,7 +63,7 @@ class Sample(object):
 
   def couplingvalue(self, coupling):
     if coupling == "a1": return 1
-    return getattr(constants, self.constantscoupling(coupling)+self.productionmode.replace("ggH", "decay"))
+    return getattr(constants, self.constantscoupling(coupling)+self.productionmode)
 
   @property
   def couplings(self):
@@ -104,13 +104,14 @@ class Sample(object):
     self.dryrun()
     print self.jobname
     link = ["ln", "-s", os.path.join(here, "..", "pdfs")]
-    commands = [link, self.commandline()]
+    export = ["export", "LD_LIBRARY_PATH=/work-zfs/lhc/heshy/JHUGen/xsecs/JHUGen_interference/JHUGenMELA/MELA/data/slc6_amd64_gcc530:"+os.environ["LD_LIBRARY_PATH"]]
+    commands = [link, export, self.commandline()]
     jobtext = " && ".join(" ".join(pipes.quote(_) for _ in command) for command in commands)
     print jobtext
     submitjob(
       jobtext = jobtext,
       jobname = self.jobname,
-      jobtime = "2-0:0:0" if self.productionmode in "ggH HWW" else "1-0:0:0",
+      jobtime = "2-0:0:0" if self.productionmode in "HZZ HWW" else "1-0:0:0",
       outputfile = self.outputfile,
       email = True,
     )
@@ -134,7 +135,7 @@ class Sample(object):
 
 def main(whattodo):
   kwargs = {}
-  for kwargs["productionmode"] in "VBF", "ZH", "WH", "ggH", "HWW":
+  for kwargs["productionmode"] in "VBF", "ZH", "WH", "HZZ", "HWW":
     for kwargs["hypothesis"] in "a1", "a2", "a3", "L1", "L1Zg", "a1a2", "a1a3", "a1L1", "a1L1Zg", "a2a3", "a2L1", "a2L1Zg", "a3L1", "a3L1Zg", "L1L1Zg":
       if "L1Zg" in kwargs["hypothesis"] and kwargs["productionmode"] in ("WH", "HWW"): continue
 
