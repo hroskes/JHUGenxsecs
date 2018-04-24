@@ -103,7 +103,7 @@ class Sample(object):
     if os.path.exists(self.outputfile): return
     self.dryrun()
     print self.jobname
-    link = ["ln", "-s", os.path.join(here, "..", "pdfs")]
+    link = [":", "ln", "-s", os.path.join(here, "..", "pdfs")]
     export = ["export", "LD_LIBRARY_PATH=/work-zfs/lhc/heshy/JHUGen/xsecs/JHUGen_interference/JHUGenMELA/MELA/data/slc6_amd64_gcc530:"+os.environ["LD_LIBRARY_PATH"]]
     commands = [link, export, self.commandline()]
     jobtext = " && ".join(" ".join(pipes.quote(_) for _ in command) for command in commands)
