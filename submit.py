@@ -19,7 +19,7 @@ class Sample(object):
 
   def commandline(self, dryrun=False):
     result = [os.path.join(here, "..", "JHUGen")]
-    result += ["Unweighted=0", "VegasNc0=99999999", "VegasNc1=99999999", "VegasNc2=99999999", "PDFSet=3", "DataFile=output.lhe"]
+    result += ["Unweighted=0", "VegasNc0=99999999", "VegasNc1=99999999", "VegasNc2=99999999", "PDFSet=3", "DataFile=workdir/"+self.jobname]
     if dryrun:
       result += ["DryRun"]
 
@@ -114,6 +114,7 @@ class Sample(object):
       jobtime = "2-0:0:0" if self.productionmode in "HZZ HWW" else "1-0:0:0",
       outputfile = self.outputfile,
       email = True,
+      docd=True,
     )
 
   @property
