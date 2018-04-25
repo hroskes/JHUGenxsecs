@@ -19,7 +19,7 @@ class Sample(object):
 
   def commandline(self, dryrun=False):
     result = [os.path.join(here, "..", "JHUGen")]
-    result += ["Unweighted=0", "VegasNc0=99999999", "VegasNc1=99999999", "VegasNc2=99999999", "PDFSet=3", "DataFile=workdir/"+self.jobname]
+    result += ["Unweighted=0", "VegasNc0=99999999", "VegasNc1=99999999", "VegasNc2=99999999", "PDFSet=3", "DataFile=workdir/"+self.jobname, "MPhotonCutoff=0"]
     if dryrun:
       result += ["DryRun"]
 
