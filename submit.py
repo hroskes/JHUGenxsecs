@@ -133,6 +133,11 @@ class Sample(object):
         if line.strip() == "Done": return xsec, error
     return None, None
 
+  @classmethod
+  def nfiles(cls, productionmode):
+    if productionmode in ("ZH", "WH"): return 20
+    if productionmode in ("VBF", "HZZ", "HWW"): return 1
+    assert False, productionmode
 
 def main(whattodo, ufloat):
   kwargs = {}
@@ -141,19 +146,21 @@ def main(whattodo, ufloat):
       if "L1Zg" in kwargs["hypothesis"] and kwargs["productionmode"] in ("WH", "HWW"): continue
 
       if whattodo == "submit":
-        for kwargs["index"] in range(1, 20 if kwargs["productionmode"] in ("ZH", "WH") else 2):
+        for kwargs["index"] in range(1, 1+Sample.nfiles(kwargs["productionmode"])):
           Sample(**kwargs).submit()
 
       elif whattodo == "calc":
         numerator = denominator = 0
-        for kwargs["index"] in count(1):
+        for kwargs["index"] in range(1, 1+Sample.nfiles(kwargs["productionmode"])):
           try:
             xsec, error = Sample(**kwargs).xsec
             if xsec is not None is not error and xsec == xsec and error == error:
               numerator += xsec/error**2
               denominator += 1/error**2
+            elif xsec is not None is not error:  #NaN
+              os.remove(Sample(**kwargs).outputfile)
           except IOError:
-            break
+            pass
         if numerator == denominator == 0: numerator = denominator = float("nan")
         kwargs["index"] = 1
         fmt = "{:20} {:.6g} +/- {:.6g}" 
