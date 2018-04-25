@@ -101,6 +101,7 @@ class Sample(object):
 
   def submit(self):
     if os.path.exists(self.outputfile): return
+    if re.search(r"\b"+self.jobname+r"\b", subprocess.check_output(["bjobs"])): return
     self.dryrun()
     print self.jobname
     link = [":", "ln", "-s", os.path.join(here, "..", "pdfs")]
@@ -159,6 +160,9 @@ def main(whattodo, ufloat):
               denominator += 1/error**2
             elif xsec is not None is not error:  #NaN
               os.remove(Sample(**kwargs).outputfile)
+            else:
+              if not re.search(r"\b"+self.jobname+r"\b", subprocess.check_output(["bjobs"])):
+                os.remove(Sample(**kwargs).outputfile)
           except IOError:
             pass
         if numerator == denominator == 0: numerator = denominator = float("nan")
