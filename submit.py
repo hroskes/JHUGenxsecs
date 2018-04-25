@@ -29,8 +29,8 @@ class Sample(object):
       result += ["DecayMode1=11", "DecayMode2=11"]
     elif self.productionmode == "VBF":
       result += ["Process=60", "deltaRcut=0"]
-      if self.hypothesis == "L1Zg":
-        result += ["pTjetcut=15"]
+      if "L1Zg" in self.hypothesis:
+        result += ["pTjetcut=1d-10"]
       else:
         result += ["pTjetcut=0"]
     elif self.productionmode == "ZH":
