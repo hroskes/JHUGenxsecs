@@ -78,7 +78,7 @@ class Sample(object):
     if self.hypothesis == "L1Zg":
       return ["ghz1=0,0", "ghzgs1_prime2=1,0"]
 
-    match = re.match("(a1|a2|a3|L1|L1Zg)(a1|a2|a3|L1|L1Zg)", self.hypothesis)
+    match = re.match("(a1|a2|a3|L1|L1Zg)(a1|a2|a3|L1|L1Zg)$", self.hypothesis)
     assert match
     result = []
     if "a1" not in self.hypothesis: result.append("ghz1=0,0")
@@ -134,7 +134,7 @@ class Sample(object):
     return None, None
 
 
-def main(whattodo):
+def main(whattodo, ufloat):
   kwargs = {}
   for kwargs["productionmode"] in "VBF", "ZH", "WH", "HZZ", "HWW":
     for kwargs["hypothesis"] in "a1", "a2", "a3", "L1", "L1Zg", "a1a2", "a1a3", "a1L1", "a1L1Zg", "a2a3", "a2L1", "a2L1Zg", "a3L1", "a3L1Zg", "L1L1Zg":
@@ -156,7 +156,12 @@ def main(whattodo):
             break
         if numerator == denominator == 0: numerator = denominator = float("nan")
         kwargs["index"] = 1
-        print "{:20} {:.6g} +/- {:.6g}".format(Sample(**kwargs).jobname, numerator/denominator, 1/denominator**.5)
+        fmt = "{:20} {:.6g} +/- {:.6g}" 
+        name = Sample(**kwargs).jobname
+        if ufloat:
+          fmt = "{:26} = ufloat({:14.8g}, {:14.8g})"
+          name = "JHUXS"+name.replace("_", "").replace("HZZ", "HZZ2L2l")
+        print fmt.format(name, numerator/denominator, 1/denominator**.5)
       else:
         assert False
 
@@ -164,5 +169,6 @@ if __name__ == "__main__":
   import argparse
   p = argparse.ArgumentParser()
   p.add_argument("whattodo", choices=("submit", "calc"))
+  p.add_argument("--ufloat", action="store_true")
   args = p.parse_args()
-  main(args.whattodo)
+  main(args.whattodo, args.ufloat)
