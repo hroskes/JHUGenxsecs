@@ -105,3 +105,45 @@ SLURM job running in:  /work-zfs/lhc/heshy/JHUGen/xsecs/JHUGen_interference/JHUG
 #                                                               *
 #*************   chi**2/iteration =  1.791       ****************
 
+
+#********** Integration by Vegas (iteration       4) ************
+#                                                               *
+#  integral  =  7880666.0       accum. integral =  7879096.2    *
+#  std. dev. =  1381.0183       accum. std. dev =  836.23380    *
+#   min/max. wt. =    0.00000             51.8809               *
+#                                                               *
+#*************   chi**2/iteration =  1.875       ****************
+
+
+#********** Integration by Vegas (iteration       5) ************
+#                                                               *
+#  integral  =            NaN   accum. integral =            NaN*
+#  std. dev. =            NaN   accum. std. dev =            NaN*
+#   min/max. wt. =    0.00000             42.2995               *
+#                                                               *
+#*************   chi**2/iteration =        NaN   ****************
+
+
+  Input parameters for vegas:  ndim= 19   ncall= 99999999.
+                              it=    0    itmx=    1
+                              acc=-1.00    
+                              mds=  0     nd=  50
+                              (xl,xu)= (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )

@@ -144,3 +144,13 @@ SLURM job running in:  /work-zfs/lhc/heshy/JHUGen/xsecs/JHUGen_interference/JHUG
 #                                                               *
 #*************   chi**2/iteration = 0.4755E-04   ****************
 
+
+#********** Integration by Vegas (iteration       2) ************
+#                                                               *
+#  integral  =  14.365419       accum. integral =  14.364768    *
+#  std. dev. = 0.77342349E-03   accum. std. dev = 0.54679129E-03*
+#   min/max. wt. =    0.00000            0.335731E-05           *
+#                                                               *
+#*************   chi**2/iteration =  1.419       ****************
+
+ Done
