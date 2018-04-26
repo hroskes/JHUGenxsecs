@@ -136,7 +136,7 @@ class Sample(object):
 
   @classmethod
   def nfiles(cls, productionmode):
-    if productionmode in ("ZH", "WH"): return 20
+    if productionmode in ("ZH", "WH"): return 50
     if productionmode in ("VBF", "HZZ", "HWW"): return 1
     assert False, productionmode
 
@@ -161,7 +161,7 @@ def main(whattodo, ufloat):
             elif xsec is not None is not error:  #NaN
               os.remove(Sample(**kwargs).outputfile)
             else:
-              if not re.search(r"\b"+self.jobname+r"\b", subprocess.check_output(["bjobs"])):
+              if not re.search(r"\b"+Sample(**kwargs).jobname+r"\b", subprocess.check_output(["bjobs"])):
                 os.remove(Sample(**kwargs).outputfile)
           except IOError:
             pass

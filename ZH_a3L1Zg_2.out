@@ -88,3 +88,73 @@ SLURM job running in:  /work-zfs/lhc/heshy/JHUGen/xsecs/JHUGen_interference/JHUG
 #                                                               *
 #*************   chi**2/iteration =  0.000       ****************
 
+
+#********** Integration by Vegas (iteration       2) ************
+#                                                               *
+#  integral  =  2867173.6       accum. integral =  2866805.7    *
+#  std. dev. =  573.74765       accum. std. dev =  480.49799    *
+#   min/max. wt. =    0.00000             3.30203               *
+#                                                               *
+#*************   chi**2/iteration =  1.378       ****************
+
+
+#********** Integration by Vegas (iteration       3) ************
+#                                                               *
+#  integral  =  2867220.2       accum. integral =  2866991.6    *
+#  std. dev. =  532.89039       accum. std. dev =  356.84312    *
+#   min/max. wt. =    0.00000             3.45807               *
+#                                                               *
+#*************   chi**2/iteration = 0.8561       ****************
+
+
+#********** Integration by Vegas (iteration       4) ************
+#                                                               *
+#  integral  =  2867489.9       accum. integral =  2867148.9    *
+#  std. dev. =  525.56704       accum. std. dev =  295.21985    *
+#   min/max. wt. =    0.00000             2.94838               *
+#                                                               *
+#*************   chi**2/iteration = 0.7758       ****************
+
+
+#********** Integration by Vegas (iteration       5) ************
+#                                                               *
+#  integral  =  2866971.0       accum. integral =  2867106.1    *
+#  std. dev. =  524.77040       accum. std. dev =  257.29870    *
+#   min/max. wt. =    0.00000             3.01312               *
+#                                                               *
+#*************   chi**2/iteration = 0.6037       ****************
+
+
+  Input parameters for vegas:  ndim= 19   ncall= 99999999.
+                              it=    0    itmx=    1
+                              acc=-1.00    
+                              mds=  0     nd=  50
+                              (xl,xu)= (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+
+#********** Integration by Vegas (iteration       1) ************
+#                                                               *
+#  integral  =  2867191.8       accum. integral =  2867191.8    *
+#  std. dev. =  523.85068       accum. std. dev =  523.85068    *
+#   min/max. wt. =    0.00000             2.92099               *
+#                                                               *
+#*************   chi**2/iteration =  0.000       ****************
+
+ Done

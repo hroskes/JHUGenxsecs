@@ -71,3 +71,76 @@ SLURM job running in:  /work-zfs/lhc/heshy/JHUGen/xsecs/JHUGen_interference/JHUG
                                        (  0.00000     ,  1.00000     )
                                        (  0.00000     ,  1.00000     )
                                        (  0.00000     ,  1.00000     )
+
+#********** Integration by Vegas (iteration       1) ************
+#                                                               *
+#  integral  =  14.473002       accum. integral =  14.473002    *
+#  std. dev. = 0.14209763       accum. std. dev = 0.14209763    *
+#   min/max. wt. =    0.00000            0.508074E-01           *
+#                                                               *
+#*************   chi**2/iteration =  0.000       ****************
+
+
+#********** Integration by Vegas (iteration       2) ************
+#                                                               *
+#  integral  =  14.351684       accum. integral =  14.352117    *
+#  std. dev. = 0.84330525E-02   accum. std. dev = 0.84536444E-02*
+#   min/max. wt. =    0.00000            0.169235E-03           *
+#                                                               *
+#*************   chi**2/iteration = 0.7317       ****************
+
+
+#********** Integration by Vegas (iteration       3) ************
+#                                                               *
+#  integral  =  14.364248       accum. integral =  14.363878    *
+#  std. dev. = 0.14935380E-02   accum. std. dev = 0.14739040E-02*
+#   min/max. wt. =    0.00000            0.340276E-05           *
+#                                                               *
+#*************   chi**2/iteration =  1.367       ****************
+
+
+#********** Integration by Vegas (iteration       4) ************
+#                                                               *
+#  integral  =  14.365086       accum. integral =  14.364778    *
+#  std. dev. = 0.86062027E-03   accum. std. dev = 0.74400363E-03*
+#   min/max. wt. =    0.00000            0.210476E-05           *
+#                                                               *
+#*************   chi**2/iteration =  1.079       ****************
+
+
+#********** Integration by Vegas (iteration       5) ************
+#                                                               *
+#  integral  =  14.364979       accum. integral =  14.364873    *
+#  std. dev. = 0.78354881E-03   accum. std. dev = 0.53977144E-03*
+#   min/max. wt. =    0.00000            0.271330E-05           *
+#                                                               *
+#*************   chi**2/iteration = 0.8186       ****************
+
+ ****************************************************
+ * Writing out vegas grid to workdir/HZZ_a3L1Zg.grid                                                 
+ ****************************************************
+
+  Input parameters for vegas:  ndim= 11   ncall= 99999999.
+                              it=    0    itmx=    2
+                              acc=-1.00    
+                              mds=  0     nd=  50
+                              (xl,xu)= (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+
+#********** Integration by Vegas (iteration       1) ************
+#                                                               *
+#  integral  =  14.364116       accum. integral =  14.364116    *
+#  std. dev. = 0.77313587E-03   accum. std. dev = 0.77313587E-03*
+#   min/max. wt. =    0.00000            0.334043E-05           *
+#                                                               *
+#*************   chi**2/iteration = 0.4755E-04   ****************
+

@@ -34,7 +34,7 @@ SLURM job running in:  /work-zfs/lhc/heshy/JHUGen/xsecs/JHUGen_interference/JHUG
             pT >=     0.00 GeV
         DeltaR >=     0.00
            mJJ >=     0.00 GeV
-    Random seed:   159809404
+    Random seed:   170422008
     To reproduce results using this seed, JHUGen should be compiled with the same compiler:
       GNU Fortran (GCC) 4.9.3
     
@@ -80,29 +80,47 @@ SLURM job running in:  /work-zfs/lhc/heshy/JHUGen/xsecs/JHUGen_interference/JHUG
 
 #********** Integration by Vegas (iteration       1) ************
 #                                                               *
-#  integral  =  5.3569853       accum. integral =  5.3569853    *
-#  std. dev. = 0.20161185E-02   accum. std. dev = 0.20161185E-02*
-#   min/max. wt. =    0.00000            0.237821E-04           *
+#  integral  =  5.3602288       accum. integral =  5.3602288    *
+#  std. dev. = 0.20173151E-02   accum. std. dev = 0.20173151E-02*
+#   min/max. wt. =    0.00000            0.289709E-04           *
 #                                                               *
-#*************   chi**2/iteration =  0.000       ****************
+#*************   chi**2/iteration = 0.2619E-05   ****************
 
 
 #********** Integration by Vegas (iteration       2) ************
 #                                                               *
-#  integral  =  5.3607965       accum. integral =  5.3599158    *
-#  std. dev. = 0.11060019E-02   accum. std. dev = 0.96949220E-03*
-#   min/max. wt. =    0.00000            0.944912E-05           *
+#  integral  =  5.3617381       accum. integral =  5.3613894    *
+#  std. dev. = 0.11061818E-02   accum. std. dev = 0.96985832E-03*
+#   min/max. wt. =    0.00000            0.937918E-05           *
 #                                                               *
-#*************   chi**2/iteration =  2.743       ****************
+#*************   chi**2/iteration = 0.4299       ****************
 
 
 #********** Integration by Vegas (iteration       3) ************
 #                                                               *
-#  integral  =            NaN   accum. integral =            NaN*
-#  std. dev. =            NaN   accum. std. dev =            NaN*
-#   min/max. wt. =    0.00000            0.690896E-05           *
+#  integral  =  5.3608816       accum. integral =  5.3611472    *
+#  std. dev. = 0.10157321E-02   accum. std. dev = 0.70145227E-03*
+#   min/max. wt. =    0.00000            0.629359E-05           *
 #                                                               *
-#*************   chi**2/iteration =        NaN   ****************
+#*************   chi**2/iteration = 0.2804       ****************
+
+
+#********** Integration by Vegas (iteration       4) ************
+#                                                               *
+#  integral  =  5.3625965       accum. integral =  5.3616244    *
+#  std. dev. = 0.10015025E-02   accum. std. dev = 0.57453016E-03*
+#   min/max. wt. =    0.00000            0.810548E-05           *
+#                                                               *
+#*************   chi**2/iteration = 0.6552       ****************
+
+
+#********** Integration by Vegas (iteration       5) ************
+#                                                               *
+#  integral  =  5.3598848       accum. integral =  5.3611926    *
+#  std. dev. = 0.99959330E-03   accum. std. dev = 0.49812125E-03*
+#   min/max. wt. =    0.00000            0.807351E-05           *
+#                                                               *
+#*************   chi**2/iteration =  1.060       ****************
 
 
   Input parameters for vegas:  ndim= 19   ncall= 99999999.
@@ -128,3 +146,13 @@ SLURM job running in:  /work-zfs/lhc/heshy/JHUGen/xsecs/JHUGen_interference/JHUG
                                        (  0.00000     ,  1.00000     )
                                        (  0.00000     ,  1.00000     )
                                        (  0.00000     ,  1.00000     )
+
+#********** Integration by Vegas (iteration       1) ************
+#                                                               *
+#  integral  =  5.3599702       accum. integral =  5.3599702    *
+#  std. dev. = 0.99777332E-03   accum. std. dev = 0.99777332E-03*
+#   min/max. wt. =    0.00000            0.681038E-05           *
+#                                                               *
+#*************   chi**2/iteration = -.1071E-04   ****************
+
+ Done

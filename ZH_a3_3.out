@@ -8,10 +8,6 @@ SLURM job running in:  /work-zfs/lhc/heshy/JHUGen/xsecs/JHUGen_interference/JHUG
   
   ***************************************************************************************
   *                                JHU Generator v7.0.2                                 *
-  ******************************************** 
-  
-  ***************************************************************************************
-  *                                JHU Generator v7.0.2                                 *
   ***************************************************************************************
   *                                                                                     *
   *   Spin and parity determination of single-produced resonances at hadron colliders   *
@@ -38,7 +34,7 @@ SLURM job running in:  /work-zfs/lhc/heshy/JHUGen/xsecs/JHUGen_interference/JHUG
             pT >=     0.00 GeV
         DeltaR >=     0.00
            mJJ >=     0.00 GeV
-    Random seed:    45173267
+    Random seed:   490366781
     To reproduce results using this seed, JHUGen should be compiled with the same compiler:
       GNU Fortran (GCC) 4.9.3
     
@@ -77,8 +73,86 @@ SLURM job running in:  /work-zfs/lhc/heshy/JHUGen/xsecs/JHUGen_interference/JHUG
                                        (  0.00000     ,  1.00000     )
                                        (  0.00000     ,  1.00000     )
                                        (  0.00000     ,  1.00000     )
-                                       (  0.00000    slurmstepd: error: *** JOB 26763948 ON compute0209 CANCELLED AT 2018-04-25T14:48:39 ***
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
 
+#********** Integration by Vegas (iteration       1) ************
+#                                                               *
+#  integral  =  69229984.       accum. integral =  69229984.    *
+#  std. dev. =  24128.656       accum. std. dev =  24128.656    *
+#   min/max. wt. =    0.00000             450.408               *
+#                                                               *
+#*************   chi**2/iteration =  0.000       ****************
+
+
+#********** Integration by Vegas (iteration       2) ************
+#                                                               *
+#  integral  =  69244983.       accum. integral =  69240620.    *
+#  std. dev. =  15456.510       accum. std. dev =  13014.515    *
+#   min/max. wt. =    0.00000             238.094               *
+#                                                               *
+#*************   chi**2/iteration = 0.2737       ****************
+
+
+#********** Integration by Vegas (iteration       3) ************
+#                                                               *
+#  integral  =  69260884.       accum. integral =  69249801.    *
+#  std. dev. =  14304.377       accum. std. dev =  9626.0425    *
+#   min/max. wt. =    0.00000             231.600               *
+#                                                               *
+#*************   chi**2/iteration = 0.6856       ****************
+
+
+#********** Integration by Vegas (iteration       4) ************
+#                                                               *
+#  integral  =  69248751.       accum. integral =  69249466.    *
+#  std. dev. =  14078.536       accum. std. dev =  7946.1617    *
+#   min/max. wt. =    0.00000             186.278               *
+#                                                               *
+#*************   chi**2/iteration = 0.4584       ****************
+
+
+#********** Integration by Vegas (iteration       5) ************
+#                                                               *
+#  integral  =  69234046.       accum. integral =  69245735.    *
+#  std. dev. =  14061.242       accum. std. dev =  6917.9994    *
+#   min/max. wt. =    0.00000             238.196               *
+#                                                               *
+#*************   chi**2/iteration = 0.5716       ****************
+
+
+  Input parameters for vegas:  ndim= 19   ncall= 99999999.
+                              it=    0    itmx=    1
+                              acc=-1.00    
+                              mds=  0     nd=  50
+                              (xl,xu)= (  0.00000     ,  1.00000     )
                                        (  0.00000     ,  1.00000     )
                                        (  0.00000     ,  1.00000     )
-slurmstepd: error: *** JOB 26763967 ON compute0204 CANCELLED AT 2018-04-25T14:48:39 ***
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+
+#********** Integration by Vegas (iteration       1) ************
+#                                                               *
+#  integral  =  69231480.       accum. integral =  69231480.    *
+#  std. dev. =  14023.981       accum. std. dev =  14023.981    *
+#   min/max. wt. =    0.00000             297.544               *
+#                                                               *
+#*************   chi**2/iteration =  0.000       ****************
+
+ Done

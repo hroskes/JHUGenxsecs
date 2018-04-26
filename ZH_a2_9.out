@@ -34,7 +34,7 @@ SLURM job running in:  /work-zfs/lhc/heshy/JHUGen/xsecs/JHUGen_interference/JHUG
             pT >=     0.00 GeV
         DeltaR >=     0.00
            mJJ >=     0.00 GeV
-    Random seed:   341898850
+    Random seed:   341518245
     To reproduce results using this seed, JHUGen should be compiled with the same compiler:
       GNU Fortran (GCC) 4.9.3
     
@@ -80,27 +80,79 @@ SLURM job running in:  /work-zfs/lhc/heshy/JHUGen/xsecs/JHUGen_interference/JHUG
 
 #********** Integration by Vegas (iteration       1) ************
 #                                                               *
-#  integral  = 0.11355080E+09   accum. integral = 0.11355080E+09*
-#  std. dev. =  41613.359       accum. std. dev =  41613.359    *
-#   min/max. wt. =    0.00000             3070.45               *
+#  integral  = 0.11358822E+09   accum. integral = 0.11358822E+09*
+#  std. dev. =  41153.578       accum. std. dev =  41153.578    *
+#   min/max. wt. =    0.00000             3518.55               *
 #                                                               *
 #*************   chi**2/iteration =  0.000       ****************
 
 
 #********** Integration by Vegas (iteration       2) ************
 #                                                               *
-#  integral  = 0.11357957E+09   accum. integral = 0.11357098E+09*
-#  std. dev. =  27146.128       accum. std. dev =  22734.978    *
-#   min/max. wt. =    0.00000             1350.51               *
+#  integral  = 0.11360434E+09   accum. integral = 0.11359944E+09*
+#  std. dev. =  27182.825       accum. std. dev =  22680.970    *
+#   min/max. wt. =    0.00000             1464.04               *
 #                                                               *
-#*************   chi**2/iteration = 0.3349       ****************
+#*************   chi**2/iteration = 0.1067       ****************
 
 
 #********** Integration by Vegas (iteration       3) ************
 #                                                               *
-#  integral  = 0.11361942E+09   accum. integral = 0.11359324E+09*
-#  std. dev. =  24674.146       accum. std. dev =  16718.629    *
-#   min/max. wt. =    0.00000             740.867               *
+#  integral  = 0.11361115E+09   accum. integral = 0.11360481E+09*
+#  std. dev. =  24665.636       accum. std. dev =  16695.206    *
+#   min/max. wt. =    0.00000             623.273               *
 #                                                               *
-#*************   chi**2/iteration =  1.209       ****************
+#*************   chi**2/iteration = 0.1144       ****************
 
+
+#********** Integration by Vegas (iteration       4) ************
+#                                                               *
+#  integral  = 0.11362321E+09   accum. integral = 0.11361079E+09*
+#  std. dev. =  24052.152       accum. std. dev =  13714.792    *
+#   min/max. wt. =    0.00000             840.104               *
+#                                                               *
+#*************   chi**2/iteration = 0.2080       ****************
+
+
+#********** Integration by Vegas (iteration       5) ************
+#                                                               *
+#  integral  = 0.11361918E+09   accum. integral = 0.11361288E+09*
+#  std. dev. =  23817.303       accum. std. dev =  11885.095    *
+#   min/max. wt. =    0.00000             886.558               *
+#                                                               *
+#*************   chi**2/iteration = 0.1792       ****************
+
+
+  Input parameters for vegas:  ndim= 19   ncall= 99999999.
+                              it=    0    itmx=    1
+                              acc=-1.00    
+                              mds=  0     nd=  50
+                              (xl,xu)= (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+
+#********** Integration by Vegas (iteration       1) ************
+#                                                               *
+#  integral  = 0.11360598E+09   accum. integral = 0.11360598E+09*
+#  std. dev. =  23692.545       accum. std. dev =  23692.545    *
+#   min/max. wt. =    0.00000             1014.68               *
+#                                                               *
+#*************   chi**2/iteration =  0.000       ****************
+
+ Done

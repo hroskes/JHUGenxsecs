@@ -34,7 +34,7 @@ SLURM job running in:  /work-zfs/lhc/heshy/JHUGen/xsecs/JHUGen_interference/JHUG
             pT >=     0.00 GeV
         DeltaR >=     0.00
            mJJ >=     0.00 GeV
-    Random seed:   396683354
+    Random seed:   162669709
     To reproduce results using this seed, JHUGen should be compiled with the same compiler:
       GNU Fortran (GCC) 4.9.3
     
@@ -80,11 +80,47 @@ SLURM job running in:  /work-zfs/lhc/heshy/JHUGen/xsecs/JHUGen_interference/JHUG
 
 #********** Integration by Vegas (iteration       1) ************
 #                                                               *
-#  integral  =            NaN   accum. integral =            NaN*
-#  std. dev. =            NaN   accum. std. dev =            NaN*
-#   min/max. wt. =    0.00000             7.74378               *
+#  integral  =  14816157.       accum. integral =  14816157.    *
+#  std. dev. =  5442.5208       accum. std. dev =  5442.5208    *
+#   min/max. wt. =    0.00000             7.81249               *
 #                                                               *
-#*************   chi**2/iteration =        NaN   ****************
+#*************   chi**2/iteration =  0.000       ****************
+
+
+#********** Integration by Vegas (iteration       2) ************
+#                                                               *
+#  integral  =  14814980.       accum. integral =  14815194.    *
+#  std. dev. =  2560.0838       accum. std. dev =  2316.6511    *
+#   min/max. wt. =    0.00000             2.80609               *
+#                                                               *
+#*************   chi**2/iteration = 0.3824E-01   ****************
+
+
+#********** Integration by Vegas (iteration       3) ************
+#                                                               *
+#  integral  =  14816507.       accum. integral =  14815867.    *
+#  std. dev. =  2256.9361       accum. std. dev =  1616.5754    *
+#   min/max. wt. =    0.00000             4.10825               *
+#                                                               *
+#*************   chi**2/iteration = 0.1015       ****************
+
+
+#********** Integration by Vegas (iteration       4) ************
+#                                                               *
+#  integral  =  14812403.       accum. integral =  14814671.    *
+#  std. dev. =  2225.6466       accum. std. dev =  1307.9924    *
+#   min/max. wt. =    0.00000             5.48737               *
+#                                                               *
+#*************   chi**2/iteration = 0.5961       ****************
+
+
+#********** Integration by Vegas (iteration       5) ************
+#                                                               *
+#  integral  =  14813722.       accum. integral =  14814427.    *
+#  std. dev. =  2219.9937       accum. std. dev =  1126.9399    *
+#   min/max. wt. =    0.00000             5.46967               *
+#                                                               *
+#*************   chi**2/iteration = 0.4810       ****************
 
 
   Input parameters for vegas:  ndim= 19   ncall= 99999999.
@@ -110,3 +146,13 @@ SLURM job running in:  /work-zfs/lhc/heshy/JHUGen/xsecs/JHUGen_interference/JHUG
                                        (  0.00000     ,  1.00000     )
                                        (  0.00000     ,  1.00000     )
                                        (  0.00000     ,  1.00000     )
+
+#********** Integration by Vegas (iteration       1) ************
+#                                                               *
+#  integral  =  14812606.       accum. integral =  14812606.    *
+#  std. dev. =  2221.8778       accum. std. dev =  2221.8778    *
+#   min/max. wt. =    0.00000             11.8945               *
+#                                                               *
+#*************   chi**2/iteration = -.6330E-05   ****************
+
+ Done

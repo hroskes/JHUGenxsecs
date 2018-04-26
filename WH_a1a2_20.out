@@ -34,7 +34,7 @@ SLURM job running in:  /work-zfs/lhc/heshy/JHUGen/xsecs/JHUGen_interference/JHUG
             pT >=     0.00 GeV
         DeltaR >=     0.00
            mJJ >=     0.00 GeV
-    Random seed:   938141585
+    Random seed:    71469906
     To reproduce results using this seed, JHUGen should be compiled with the same compiler:
       GNU Fortran (GCC) 4.9.3
     
@@ -57,6 +57,57 @@ SLURM job running in:  /work-zfs/lhc/heshy/JHUGen/xsecs/JHUGen_interference/JHUG
 
   Input parameters for vegas:  ndim= 19   ncall= 99999999.
                               it=    0    itmx=    5
+                              acc=-1.00    
+                              mds=  0     nd=  50
+                              (xl,xu)= (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+
+#********** Integration by Vegas (iteration       1) ************
+#                                                               *
+#  integral  =  7881339.8       accum. integral =  7881339.8    *
+#  std. dev. =  3569.8821       accum. std. dev =  3569.8821    *
+#   min/max. wt. =    0.00000             590.694               *
+#                                                               *
+#*************   chi**2/iteration = 0.6130E-06   ****************
+
+
+#********** Integration by Vegas (iteration       2) ************
+#                                                               *
+#  integral  =  7876962.2       accum. integral =  7877760.4    *
+#  std. dev. =  1684.8412       accum. std. dev =  1523.9388    *
+#   min/max. wt. =    0.00000             71.8543               *
+#                                                               *
+#*************   chi**2/iteration =  1.229       ****************
+
+
+#********** Integration by Vegas (iteration       3) ************
+#                                                               *
+#  integral  =            NaN   accum. integral =            NaN*
+#  std. dev. =            NaN   accum. std. dev =            NaN*
+#   min/max. wt. =    0.00000             56.8919               *
+#                                                               *
+#*************   chi**2/iteration =        NaN   ****************
+
+
+  Input parameters for vegas:  ndim= 19   ncall= 99999999.
+                              it=    0    itmx=    1
                               acc=-1.00    
                               mds=  0     nd=  50
                               (xl,xu)= (  0.00000     ,  1.00000     )

@@ -133,3 +133,111 @@ SLURM job running in:  /work-zfs/lhc/heshy/JHUGen/xsecs/JHUGen_interference/JHUG
 #                                                               *
 #*************   chi**2/iteration =  30.63       ****************
 
+
+#********** Integration by Vegas (iteration       8) ************
+#                                                               *
+#  integral  =  1401.6814       accum. integral =  1402.6028    *
+#  std. dev. = 0.75474153       accum. std. dev = 0.39496237    *
+#   min/max. wt. =    0.00000            0.275285E-01           *
+#                                                               *
+#*************   chi**2/iteration =  26.22       ****************
+
+
+#********** Integration by Vegas (iteration       9) ************
+#                                                               *
+#  integral  =  1401.4128       accum. integral =  1402.3182    *
+#  std. dev. = 0.73748589       accum. std. dev = 0.34634869    *
+#   min/max. wt. =    0.00000            0.268810E-01           *
+#                                                               *
+#*************   chi**2/iteration =  22.97       ****************
+
+
+#********** Integration by Vegas (iteration      10) ************
+#                                                               *
+#  integral  =  1402.4163       accum. integral =  1402.3372    *
+#  std. dev. = 0.73710589       accum. std. dev = 0.31239820    *
+#   min/max. wt. =    0.00000            0.290813E-01           *
+#                                                               *
+#*************   chi**2/iteration =  20.25       ****************
+
+
+#********** Integration by Vegas (iteration      11) ************
+#                                                               *
+#  integral  =  1402.4763       accum. integral =  1402.3599    *
+#  std. dev. = 0.73443582       accum. std. dev = 0.28679467    *
+#   min/max. wt. =    0.00000            0.336405E-01           *
+#                                                               *
+#*************   chi**2/iteration =  18.10       ****************
+
+
+#********** Integration by Vegas (iteration      12) ************
+#                                                               *
+#  integral  =  1402.5059       accum. integral =  1402.3806    *
+#  std. dev. = 0.72943608       accum. std. dev = 0.26644342    *
+#   min/max. wt. =    0.00000            0.512354E-01           *
+#                                                               *
+#*************   chi**2/iteration =  16.37       ****************
+
+
+#********** Integration by Vegas (iteration      13) ************
+#                                                               *
+#  integral  =  1401.7258       accum. integral =  1402.3005    *
+#  std. dev. = 0.73532445       accum. std. dev = 0.25020424    *
+#   min/max. wt. =    0.00000            0.286500E-01           *
+#                                                               *
+#*************   chi**2/iteration =  14.99       ****************
+
+
+#********** Integration by Vegas (iteration      14) ************
+#                                                               *
+#  integral  =  1402.1421       accum. integral =  1402.2833    *
+#  std. dev. = 0.73706120       accum. std. dev = 0.23670959    *
+#   min/max. wt. =    0.00000            0.586413E-01           *
+#                                                               *
+#*************   chi**2/iteration =  13.79       ****************
+
+
+#********** Integration by Vegas (iteration      15) ************
+#                                                               *
+#  integral  =  1402.9995       accum. integral =  1402.3531    *
+#  std. dev. = 0.73936456       accum. std. dev = 0.22527745    *
+#   min/max. wt. =    0.00000            0.370999E-01           *
+#                                                               *
+#*************   chi**2/iteration =  12.82       ****************
+
+ ****************************************************
+ * Writing out vegas grid to workdir/VBF_L1L1Zg.grid                                                 
+ ****************************************************
+
+  Input parameters for vegas:  ndim=  9   ncall= 99999999.
+                              it=    0    itmx=    2
+                              acc=-1.00    
+                              mds=  0     nd=  50
+                              (xl,xu)= (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+
+#********** Integration by Vegas (iteration       1) ************
+#                                                               *
+#  integral  =  1401.7668       accum. integral =  1401.7668    *
+#  std. dev. = 0.74064123       accum. std. dev = 0.74064123    *
+#   min/max. wt. =    0.00000            0.475691E-01           *
+#                                                               *
+#*************   chi**2/iteration =  0.000       ****************
+
+
+#********** Integration by Vegas (iteration       2) ************
+#                                                               *
+#  integral  =  1402.1998       accum. integral =  1401.9816    *
+#  std. dev. = 0.74666409       accum. std. dev = 0.52582956    *
+#   min/max. wt. =    0.00000            0.597633E-01           *
+#                                                               *
+#*************   chi**2/iteration = 0.1693       ****************
+
+ Done

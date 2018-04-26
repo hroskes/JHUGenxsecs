@@ -34,7 +34,7 @@ SLURM job running in:  /work-zfs/lhc/heshy/JHUGen/xsecs/JHUGen_interference/JHUG
             pT >=     0.00 GeV
         DeltaR >=     0.00
            mJJ >=     0.00 GeV
-    Random seed:   382160410
+    Random seed:   806389234
     To reproduce results using this seed, JHUGen should be compiled with the same compiler:
       GNU Fortran (GCC) 4.9.3
     
@@ -80,9 +80,27 @@ SLURM job running in:  /work-zfs/lhc/heshy/JHUGen/xsecs/JHUGen_interference/JHUG
 
 #********** Integration by Vegas (iteration       1) ************
 #                                                               *
-#  integral  = 0.14838671E+10   accum. integral = 0.14838671E+10*
-#  std. dev. =  530311.70       accum. std. dev =  530311.70    *
-#   min/max. wt. =    0.00000             55264.1               *
+#  integral  = 0.14853406E+10   accum. integral = 0.14853406E+10*
+#  std. dev. =  537134.85       accum. std. dev =  537134.85    *
+#   min/max. wt. =    0.00000             49519.6               *
 #                                                               *
-#*************   chi**2/iteration =  0.000       ****************
+#*************   chi**2/iteration = 0.2662E-05   ****************
+
+
+#********** Integration by Vegas (iteration       2) ************
+#                                                               *
+#  integral  = 0.14850997E+10   accum. integral = 0.14851513E+10*
+#  std. dev. =  280630.17       accum. std. dev =  248740.65    *
+#   min/max. wt. =    0.00000             8886.60               *
+#                                                               *
+#*************   chi**2/iteration = 0.1579       ****************
+
+
+#********** Integration by Vegas (iteration       3) ************
+#                                                               *
+#  integral  = 0.14846177E+10   accum. integral = 0.14848826E+10*
+#  std. dev. =  246800.41       accum. std. dev =  175208.32    *
+#   min/max. wt. =    0.00000             7829.84               *
+#                                                               *
+#*************   chi**2/iteration =  1.238       ****************
 

@@ -34,7 +34,7 @@ SLURM job running in:  /work-zfs/lhc/heshy/JHUGen/xsecs/JHUGen_interference/JHUG
             pT >=     0.00 GeV
         DeltaR >=     0.00
            mJJ >=     0.00 GeV
-    Random seed:   833967602
+    Random seed:   829607196
     To reproduce results using this seed, JHUGen should be compiled with the same compiler:
       GNU Fortran (GCC) 4.9.3
     
@@ -82,20 +82,47 @@ SLURM job running in:  /work-zfs/lhc/heshy/JHUGen/xsecs/JHUGen_interference/JHUG
 
 #********** Integration by Vegas (iteration       1) ************
 #                                                               *
-#  integral  =  3480168.8       accum. integral =  3480168.8    *
-#  std. dev. =  1045.8150       accum. std. dev =  1045.8150    *
-#   min/max. wt. =    0.00000             3.79902               *
+#  integral  =  3480183.1       accum. integral =  3480183.1    *
+#  std. dev. =  1046.0779       accum. std. dev =  1046.0779    *
+#   min/max. wt. =    0.00000             3.45817               *
 #                                                               *
-#*************   chi**2/iteration = -.3571E-05   ****************
+#*************   chi**2/iteration =  0.000       ****************
 
 
 #********** Integration by Vegas (iteration       2) ************
 #                                                               *
-#  integral  =            NaN   accum. integral =            NaN*
-#  std. dev. =            NaN   accum. std. dev =            NaN*
-#   min/max. wt. =    0.00000             2.07763               *
+#  integral  =  3478938.2       accum. integral =  3479356.6    *
+#  std. dev. =  743.98629       accum. std. dev =  606.32144    *
+#   min/max. wt. =    0.00000             1.96215               *
 #                                                               *
-#*************   chi**2/iteration =        NaN   ****************
+#*************   chi**2/iteration = 0.9396       ****************
+
+
+#********** Integration by Vegas (iteration       3) ************
+#                                                               *
+#  integral  =  3480596.8       accum. integral =  3479889.1    *
+#  std. dev. =  699.17782       accum. std. dev =  458.05828    *
+#   min/max. wt. =    0.00000             1.98523               *
+#                                                               *
+#*************   chi**2/iteration =  1.368       ****************
+
+
+#********** Integration by Vegas (iteration       4) ************
+#                                                               *
+#  integral  =  3480694.6       accum. integral =  3480135.5    *
+#  std. dev. =  690.07988       accum. std. dev =  381.63114    *
+#   min/max. wt. =    0.00000             2.22443               *
+#                                                               *
+#*************   chi**2/iteration =  1.227       ****************
+
+
+#********** Integration by Vegas (iteration       5) ************
+#                                                               *
+#  integral  =  3480038.7       accum. integral =  3480112.8    *
+#  std. dev. =  689.15122       accum. std. dev =  333.85864    *
+#   min/max. wt. =    0.00000             2.34482               *
+#                                                               *
+#*************   chi**2/iteration = 0.9241       ****************
 
 
   Input parameters for vegas:  ndim= 19   ncall= 99999999.
@@ -121,3 +148,13 @@ SLURM job running in:  /work-zfs/lhc/heshy/JHUGen/xsecs/JHUGen_interference/JHUG
                                        (  0.00000     ,  1.00000     )
                                        (  0.00000     ,  1.00000     )
                                        (  0.00000     ,  1.00000     )
+
+#********** Integration by Vegas (iteration       1) ************
+#                                                               *
+#  integral  =  3481028.6       accum. integral =  3481028.6    *
+#  std. dev. =  688.09745       accum. std. dev =  688.09745    *
+#   min/max. wt. =    0.00000             2.49813               *
+#                                                               *
+#*************   chi**2/iteration =  0.000       ****************
+
+ Done
