@@ -12,14 +12,15 @@ import constants
 here = os.path.abspath(os.path.dirname(__file__))
 
 class Sample(object):
-  def __init__(self, productionmode, hypothesis, index=1):
+  def __init__(self, productionmode, hypothesis, pdfset, index=1):
     self.productionmode = productionmode
     self.hypothesis = hypothesis
+    self.pdfset = pdfset
     self.index = index
 
   def commandline(self, dryrun=False):
     result = [os.path.join(here, "..", "JHUGen")]
-    result += ["Unweighted=0", "VegasNc0=99999999", "VegasNc1=99999999", "VegasNc2=99999999", "PDFSet=3", "DataFile=workdir/"+self.jobname, "MPhotonCutoff=0"]
+    result += ["Unweighted=0", "VegasNc0=99999999", "VegasNc1=99999999", "VegasNc2=99999999", "LHAPDF={p}/{p}.info".format(p=self.pdfset), "DataFile=workdir/"+self.jobname, "MPhotonCutoff=0"]
     if dryrun:
       result += ["DryRun"]
 
@@ -88,6 +89,7 @@ class Sample(object):
     return result
 
   def dryrun(self):
+    os.environ["LHAPDF_DATA_PATH"] = "/work-zfs/lhc/lhapdf/cvmfs/cms.cern.ch/lhapdf/pdfsets/6.2"
     subprocess.check_call(self.commandline(dryrun=True))
 
   @property
@@ -97,15 +99,22 @@ class Sample(object):
 
   @property
   def outputfile(self):
-    return os.path.join(here, self.jobname+".out")
+    return os.path.join(here, self.pdfset, self.jobname+".out")
 
   def submit(self):
     if os.path.exists(self.outputfile): return
     if re.search(r"\b"+self.jobname+r"\b", subprocess.check_output(["bjobs"])): return
+
+    if self.pdfset != "NNPDF30_lo_as_0130" and self.productionmode in ("HZZ", "HWW"): return
+
     self.dryrun()
     print self.jobname
     link = [":", "ln", "-s", os.path.join(here, "..", "pdfs")]
-    export = ["export", "LD_LIBRARY_PATH=/work-zfs/lhc/heshy/JHUGen/xsecs/JHUGen_interference/JHUGenMELA/MELA/data/slc6_amd64_gcc530:"+os.environ["LD_LIBRARY_PATH"]]
+    export = [
+      "export",
+      "LD_LIBRARY_PATH=/work-zfs/lhc/heshy/JHUGen/xsecs/JHUGen_interference/JHUGenMELA/MELA/data/slc6_amd64_gcc530:"+os.environ["LD_LIBRARY_PATH"],
+      "LHAPDF_DATA_PATH=/work-zfs/lhc/lhapdf/cvmfs/cms.cern.ch/lhapdf/pdfsets/6.2",
+    ]
     commands = [link, export, self.commandline()]
     jobtext = " && ".join(" ".join(pipes.quote(_) for _ in command) for command in commands)
     print jobtext
@@ -142,39 +151,42 @@ class Sample(object):
 
 def main(whattodo, ufloat):
   kwargs = {}
-  for kwargs["productionmode"] in "VBF", "ZH", "WH", "HZZ", "HWW":
-    for kwargs["hypothesis"] in "a1", "a2", "a3", "L1", "L1Zg", "a1a2", "a1a3", "a1L1", "a1L1Zg", "a2a3", "a2L1", "a2L1Zg", "a3L1", "a3L1Zg", "L1L1Zg":
-      if "L1Zg" in kwargs["hypothesis"] and kwargs["productionmode"] in ("WH", "HWW"): continue
+  for kwargs["pdfset"] in "NNPDF30_lo_as_0130",:
+    print "\n"+kwargs["pdfset"]+"\n"
+    for kwargs["productionmode"] in "VBF", "ZH", "WH", "HZZ", "HWW":
+      if kwargs["productionmode"] in ("HZZ", "HWW") and kwargs["pdfset"] != "NNPDF30_lo_as_0130": continue
+      for kwargs["hypothesis"] in "a1", "a2", "a3", "L1", "L1Zg", "a1a2", "a1a3", "a1L1", "a1L1Zg", "a2a3", "a2L1", "a2L1Zg", "a3L1", "a3L1Zg", "L1L1Zg":
+        if "L1Zg" in kwargs["hypothesis"] and kwargs["productionmode"] in ("WH", "HWW"): continue
 
-      if whattodo == "submit":
-        for kwargs["index"] in range(1, 1+Sample.nfiles(kwargs["productionmode"])):
-          Sample(**kwargs).submit()
+        if whattodo == "submit":
+          for kwargs["index"] in range(1, 1+Sample.nfiles(kwargs["productionmode"])):
+            Sample(**kwargs).submit()
 
-      elif whattodo == "calc":
-        numerator = denominator = 0
-        for kwargs["index"] in range(1, 1+Sample.nfiles(kwargs["productionmode"])):
-          try:
-            xsec, error = Sample(**kwargs).xsec
-            if xsec is not None is not error and xsec == xsec and error == error:
-              numerator += xsec/error**2
-              denominator += 1/error**2
-            elif xsec is not None is not error:  #NaN
-              os.remove(Sample(**kwargs).outputfile)
-            else:
-              if not re.search(r"\b"+Sample(**kwargs).jobname+r"\b", subprocess.check_output(["bjobs"])):
+        elif whattodo == "calc":
+          numerator = denominator = 0
+          for kwargs["index"] in range(1, 1+Sample.nfiles(kwargs["productionmode"])):
+            try:
+              xsec, error = Sample(**kwargs).xsec
+              if xsec is not None is not error and xsec == xsec and error == error:
+                numerator += xsec/error**2
+                denominator += 1/error**2
+              elif xsec is not None is not error:  #NaN
                 os.remove(Sample(**kwargs).outputfile)
-          except IOError:
-            pass
-        if numerator == denominator == 0: numerator = denominator = float("nan")
-        kwargs["index"] = 1
-        fmt = "{:20} {:.6g} +/- {:.6g}" 
-        name = Sample(**kwargs).jobname
-        if ufloat:
-          fmt = "{:26} = ufloat({:14.8g}, {:14.8g})"
-          name = "JHUXS"+name.replace("_", "").replace("HZZ", "HZZ2L2l")
-        print fmt.format(name, numerator/denominator, 1/denominator**.5)
-      else:
-        assert False
+              else:
+                if not re.search(r"\b"+Sample(**kwargs).jobname+r"\b", subprocess.check_output(["bjobs"])):
+                  os.remove(Sample(**kwargs).outputfile)
+            except IOError:
+              pass
+          if numerator == denominator == 0: numerator = denominator = float("nan")
+          kwargs["index"] = 1
+          fmt = "{:20} {:.6g} +/- {:.6g}" 
+          name = Sample(**kwargs).jobname
+          if ufloat:
+            fmt = "{:26} = ufloat({:14.8g}, {:14.8g})"
+            name = "JHUXS"+name.replace("_", "").replace("HZZ", "HZZ2L2l")
+          print fmt.format(name, numerator/denominator, 1/denominator**.5)
+        else:
+          assert False
 
 if __name__ == "__main__":
   import argparse
