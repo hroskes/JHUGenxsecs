@@ -94,21 +94,32 @@ class Sample(object):
 
   @property
   def jobname(self):
+    if self.pdfset != "NNPDF30_lo_as_0130" and self.productionmode in ("HZZ", "HWW"):
+      s = Sample(productionmode=self.productionmode, hypothesis=self.hypothesis, pdfset="NNPDF30_lo_as_0130", index=self.index)
+      return s.jobname
+    return (self.productionmode + "_" + self.hypothesis + "_" + self.pdfset
+         + ("_{}".format(self.index) if self.index > 1 else ""))
+
+  @property
+  def printname(self):
     return (self.productionmode + "_" + self.hypothesis
          + ("_{}".format(self.index) if self.index > 1 else ""))
 
   @property
   def outputfile(self):
-    return os.path.join(here, self.pdfset, self.jobname+".out")
+    return os.path.join(here, self.pdfset, self.printname+".out")
 
   def submit(self):
     if os.path.exists(self.outputfile): return
     if re.search(r"\b"+self.jobname+r"\b", subprocess.check_output(["bjobs"])): return
 
-    if self.pdfset != "NNPDF30_lo_as_0130" and self.productionmode in ("HZZ", "HWW"): return
+    if self.pdfset != "NNPDF30_lo_as_0130" and self.productionmode in ("HZZ", "HWW"):
+      s = Sample(productionmode=self.productionmode, hypothesis=self.hypothesis, pdfset="NNPDF30_lo_as_0130", index=self.index)
+      os.symlink(s.outputfile, self.outputfile)
+      return s.submit()
 
     self.dryrun()
-    print self.jobname
+    print self.printname
     link = [":", "ln", "-s", os.path.join(here, "..", "pdfs")]
     export = [
       "export",
@@ -149,49 +160,52 @@ class Sample(object):
     if productionmode in ("VBF", "HZZ", "HWW"): return 1
     assert False, productionmode
 
-def main(whattodo, ufloat):
+def main(whattodo, ufloat, pdfset):
+  folder = os.path.join(here, pdfset)
+  if not os.path.exists(folder): os.mkdir(folder)
+
   kwargs = {}
-  for kwargs["pdfset"] in "NNPDF30_lo_as_0130",:
-    print "\n"+kwargs["pdfset"]+"\n"
-    for kwargs["productionmode"] in "VBF", "ZH", "WH", "HZZ", "HWW":
-      if kwargs["productionmode"] in ("HZZ", "HWW") and kwargs["pdfset"] != "NNPDF30_lo_as_0130": continue
-      for kwargs["hypothesis"] in "a1", "a2", "a3", "L1", "L1Zg", "a1a2", "a1a3", "a1L1", "a1L1Zg", "a2a3", "a2L1", "a2L1Zg", "a3L1", "a3L1Zg", "L1L1Zg":
-        if "L1Zg" in kwargs["hypothesis"] and kwargs["productionmode"] in ("WH", "HWW"): continue
+  kwargs["pdfset"] = pdfset
+  for kwargs["productionmode"] in "VBF", "ZH", "WH", "HZZ", "HWW":
+    if kwargs["productionmode"] in ("HZZ", "HWW") and kwargs["pdfset"] != "NNPDF30_lo_as_0130": continue
+    for kwargs["hypothesis"] in "a1", "a2", "a3", "L1", "L1Zg", "a1a2", "a1a3", "a1L1", "a1L1Zg", "a2a3", "a2L1", "a2L1Zg", "a3L1", "a3L1Zg", "L1L1Zg":
+      if "L1Zg" in kwargs["hypothesis"] and kwargs["productionmode"] in ("WH", "HWW"): continue
 
-        if whattodo == "submit":
-          for kwargs["index"] in range(1, 1+Sample.nfiles(kwargs["productionmode"])):
-            Sample(**kwargs).submit()
+      if whattodo == "submit":
+        for kwargs["index"] in range(1, 1+Sample.nfiles(kwargs["productionmode"])):
+          Sample(**kwargs).submit()
 
-        elif whattodo == "calc":
-          numerator = denominator = 0
-          for kwargs["index"] in range(1, 1+Sample.nfiles(kwargs["productionmode"])):
-            try:
-              xsec, error = Sample(**kwargs).xsec
-              if xsec is not None is not error and xsec == xsec and error == error:
-                numerator += xsec/error**2
-                denominator += 1/error**2
-              elif xsec is not None is not error:  #NaN
+      elif whattodo == "calc":
+        numerator = denominator = 0
+        for kwargs["index"] in range(1, 1+Sample.nfiles(kwargs["productionmode"])):
+          try:
+            xsec, error = Sample(**kwargs).xsec
+            if xsec is not None is not error and xsec == xsec and error == error:
+              numerator += xsec/error**2
+              denominator += 1/error**2
+            elif xsec is not None is not error:  #NaN
+              os.remove(Sample(**kwargs).outputfile)
+            else:
+              if not re.search(r"\b"+Sample(**kwargs).jobname+r"\b", subprocess.check_output(["bjobs"])):
                 os.remove(Sample(**kwargs).outputfile)
-              else:
-                if not re.search(r"\b"+Sample(**kwargs).jobname+r"\b", subprocess.check_output(["bjobs"])):
-                  os.remove(Sample(**kwargs).outputfile)
-            except IOError:
-              pass
-          if numerator == denominator == 0: numerator = denominator = float("nan")
-          kwargs["index"] = 1
-          fmt = "{:20} {:.6g} +/- {:.6g}" 
-          name = Sample(**kwargs).jobname
-          if ufloat:
-            fmt = "{:26} = ufloat({:14.8g}, {:14.8g})"
-            name = "JHUXS"+name.replace("_", "").replace("HZZ", "HZZ2L2l")
-          print fmt.format(name, numerator/denominator, 1/denominator**.5)
-        else:
-          assert False
+          except IOError:
+            pass
+        if numerator == denominator == 0: numerator = denominator = float("nan")
+        kwargs["index"] = 1
+        fmt = "{:20} {:.6g} +/- {:.6g}" 
+        name = Sample(**kwargs).printname
+        if ufloat:
+          fmt = "{:26} = ufloat({:14.8g}, {:14.8g})"
+          name = "JHUXS"+name.replace("_", "").replace("HZZ", "HZZ2L2l")
+        print fmt.format(name, numerator/denominator, 1/denominator**.5)
+      else:
+        assert False
 
 if __name__ == "__main__":
   import argparse
   p = argparse.ArgumentParser()
   p.add_argument("whattodo", choices=("submit", "calc"))
   p.add_argument("--ufloat", action="store_true")
+  p.add_argument("--pdf", default="NNPDF30_lo_as_0130", choices="NNPDF30_lo_as_0130 NNPDF31_lo_as_0130")
   args = p.parse_args()
-  main(args.whattodo, args.ufloat)
+  main(args.whattodo, args.ufloat, args.pdf)
