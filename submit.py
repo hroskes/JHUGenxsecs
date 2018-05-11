@@ -89,7 +89,6 @@ class Sample(object):
     return result
 
   def dryrun(self):
-    os.environ["LHAPDF_DATA_PATH"] = "/work-zfs/lhc/lhapdf/cvmfs/cms.cern.ch/lhapdf/pdfsets/6.2"
     subprocess.check_call(self.commandline(dryrun=True))
 
   @property
@@ -124,7 +123,6 @@ class Sample(object):
     export = [
       "export",
       "LD_LIBRARY_PATH=/work-zfs/lhc/heshy/JHUGen/xsecs/JHUGen_interference/JHUGenMELA/MELA/data/slc6_amd64_gcc530:"+os.environ["LD_LIBRARY_PATH"],
-      "LHAPDF_DATA_PATH=/work-zfs/lhc/lhapdf/cvmfs/cms.cern.ch/lhapdf/pdfsets/6.2",
     ]
     commands = [link, export, self.commandline()]
     jobtext = " && ".join(" ".join(pipes.quote(_) for _ in command) for command in commands)
@@ -206,6 +204,6 @@ if __name__ == "__main__":
   p = argparse.ArgumentParser()
   p.add_argument("whattodo", choices=("submit", "calc"))
   p.add_argument("--ufloat", action="store_true")
-  p.add_argument("--pdf", default="NNPDF30_lo_as_0130", choices="NNPDF30_lo_as_0130 NNPDF31_lo_as_0130")
+  p.add_argument("--pdf", default="NNPDF30_lo_as_0130", choices=("NNPDF30_lo_as_0130", "NNPDF31_lo_as_0130"))
   args = p.parse_args()
   main(args.whattodo, args.ufloat, args.pdf)
