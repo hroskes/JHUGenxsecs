@@ -40,6 +40,8 @@ class Sample(object):
       result += ["Process=50", "DecayMode1=9"]
     elif self.productionmode == "WH":
       result += ["Process=50", "DecayMode1=11"]
+    elif self.productionmode == "ttH":
+      result += ["Process=80", "DecayMode1=11", "DecayMode2=11", "TopDK=1"]
     else:
       assert False
 
@@ -77,6 +79,15 @@ class Sample(object):
         return ["ghg2=0,0", "ghg4=1,0"]
       if self.hypothesis == "a2a3":
         return ["ghg2=1,0", "ghg4=1.00618256,0"]
+      assert False
+
+    if self.productionmode == "ttH":
+      if self.hypothesis == "a2":
+        return "kappa=1,0"
+      if self.hypothesis == "a3":
+        return ["kappa=0,0", "kappa_tilde=1,0"]
+      if self.hypothesis == "a2a3":
+        return ["kappa=1,0", "kappa_tilde=1.6,0"]
       assert False
 
     if self.hypothesis == "a1":
@@ -161,33 +172,43 @@ class Sample(object):
           result = float(match.group(1))
           error = result
         if line.strip() == "Done": return xsec, error
+    if xsec != xsec or error != error: #nan
+      for line in subprocess.check_output(["bjobs"]).split("\n"):
+        if re.search(r"\b"+self.jobname+r"\b", line):
+          jobnumber = int(line.split()[0])
+          subprocess.check_call(["scancel", str(jobnumber)])
+          break
     return None, None
 
   @classmethod
-  def nfiles(cls, productionmode):
-    if productionmode in ("ZH", "WH"): return 50
-    if productionmode in ("VBF", "HZZ", "HWW", "HJJ"): return 1
-    assert False, productionmode
+  def nfiles(cls, productionmode, hypothesis, **kwargs):
+    if productionmode in ("ZH", "WH"):
+      if hypothesis == "a1a2": return 200
+      return 50
+    if productionmode in ("VBF", "HZZ", "HWW", "HJJ", "ttH"): return 1
+    assert False, (productionmode, hypothesis)
 
-def main(whattodo, ufloat, pdfset):
+def main(whattodo, ufloat, pdfset, productionmode=None, hypothesis=None):
   folder = os.path.join(here, pdfset)
   if not os.path.exists(folder): os.mkdir(folder)
 
   kwargs = {}
   kwargs["pdfset"] = pdfset
-  for kwargs["productionmode"] in "VBF", "ZH", "WH", "HZZ", "HWW", "HJJ":
+  for kwargs["productionmode"] in "VBF", "ZH", "WH", "HZZ", "HWW", "HJJ", "ttH":
     if kwargs["productionmode"] in ("HZZ", "HWW") and kwargs["pdfset"] != "NNPDF30_lo_as_0130": continue
+    if kwargs["productionmode"] != productionmode is not None: continue
     for kwargs["hypothesis"] in "a1", "a2", "a3", "L1", "L1Zg", "a1a2", "a1a3", "a1L1", "a1L1Zg", "a2a3", "a2L1", "a2L1Zg", "a3L1", "a3L1Zg", "L1L1Zg":
       if "L1Zg" in kwargs["hypothesis"] and kwargs["productionmode"] in ("WH", "HWW"): continue
-      if kwargs["hypothesis"] not in ("a2", "a3", "a2a3") and kwargs["productionmode"] == "HJJ": continue
+      if kwargs["hypothesis"] not in ("a2", "a3", "a2a3") and kwargs["productionmode"] in ("HJJ", "ttH"): continue
+      if kwargs["hypothesis"] != hypothesis is not None: continue
 
       if whattodo == "submit":
-        for kwargs["index"] in range(1, 1+Sample.nfiles(kwargs["productionmode"])):
+        for kwargs["index"] in range(1, 1+Sample.nfiles(**kwargs)):
           Sample(**kwargs).submit()
 
       elif whattodo == "calc":
         numerator = denominator = 0
-        for kwargs["index"] in range(1, 1+Sample.nfiles(kwargs["productionmode"])):
+        for kwargs["index"] in range(1, 1+Sample.nfiles(**kwargs)):
           try:
             xsec, error = Sample(**kwargs).xsec
             if xsec is not None is not error and xsec == xsec and error == error:
@@ -217,5 +238,7 @@ if __name__ == "__main__":
   p.add_argument("whattodo", choices=("submit", "calc"))
   p.add_argument("--ufloat", action="store_true")
   p.add_argument("--pdf", default="NNPDF30_lo_as_0130", choices=("NNPDF30_lo_as_0130", "NNPDF31_lo_as_0130"))
+  p.add_argument("--productionmode", choices=("HZZ", "HWW", "VBF", "ZH", "WH", "HJJ", "ttH"))
+  p.add_argument("--hypothesis", choices=("a1", "a2", "a3", "L1", "L1Zg", "a1a2", "a1a3", "a1L1", "a1L1Zg", "a2a3", "a2L1", "a2L1Zg", "a3L1", "a3L1Zg", "L1L1Zg"))
   args = p.parse_args()
-  main(args.whattodo, args.ufloat, args.pdf)
+  main(args.whattodo, args.ufloat, args.pdf, args.productionmode, args.hypothesis)
