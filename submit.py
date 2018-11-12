@@ -42,6 +42,8 @@ class Sample(object):
       result += ["Process=50", "DecayMode1=11"]
     elif self.productionmode == "ttH":
       result += ["Process=80", "DecayMode1=11", "DecayMode2=11", "TopDK=1"]
+    elif self.productionmode == "ggZH":
+      result += ["Process=51", "DecayMode1=9"]
     else:
       assert False
 
@@ -56,6 +58,8 @@ class Sample(object):
     if coupling == "a3": return "ghz4"
     if coupling == "L1": return "ghz1_prime2"
     if coupling == "L1Zg": return "ghzgs1_prime2"
+    if coupling == "kappa": return "kappa"
+    if coupling == "kappatilde": return "kappa_tilde"
     assert False, coupling
   @staticmethod
   def constantscoupling(coupling):
@@ -82,12 +86,30 @@ class Sample(object):
       assert False
 
     if self.productionmode == "ttH":
-      if self.hypothesis == "a2":
+      if self.hypothesis == "kappa":
         return ["kappa=1,0"]
-      if self.hypothesis == "a3":
+      if self.hypothesis == "kappatilde":
         return ["kappa=0,0", "kappa_tilde=1,0"]
-      if self.hypothesis == "a2a3":
+      if self.hypothesis == "kappakappatilde":
         return ["kappa=1,0", "kappa_tilde=1.6,0"]
+      assert False
+
+    if self.productionmode == "ggZH":
+      if self.hypothesis == "a1":
+        return ["kappa=0,0", "ghz1=1,0"]
+      if self.hypothesis == "a2":
+        return ["kappa=0,0", "ghz1=0,0", "ghz2=1,0"]
+      if self.hypothesis == "a3":
+        return ["kappa=0,0", "ghz1=0,0", "ghz4=1,0"]
+      if self.hypothesis == "L1":
+        return ["kappa=0,0", "ghz1=0,0", "ghz1_prime2=1,0"]
+      if self.hypothesis == "L1Zg":
+        return ["kappa=0,0", "ghz1=0,0", "ghzgs1_prime2=1,0"]
+
+      if self.hypothesis == "kappa":
+        return ["ghz1=0,0", "kappa=1,0"]
+      if self.hypothesis == "kappatilde":
+        return ["ghz1=0,0", "kappa=0,0", "kappa_tilde=1,0"]
       assert False
 
     if self.hypothesis == "a1":
@@ -185,7 +207,7 @@ class Sample(object):
     if productionmode in ("ZH", "WH"):
       if hypothesis == "a1a2": return 200
       return 50
-    if productionmode in ("VBF", "HZZ", "HWW", "HJJ", "ttH"): return 1
+    if productionmode in ("VBF", "HZZ", "HWW", "HJJ", "ttH", "ggZH"): return 1
     assert False, (productionmode, hypothesis)
 
 def main(whattodo, ufloat, pdfset, productionmode=None, hypothesis=None):
@@ -197,9 +219,15 @@ def main(whattodo, ufloat, pdfset, productionmode=None, hypothesis=None):
   for kwargs["productionmode"] in "VBF", "ZH", "WH", "HZZ", "HWW", "HJJ", "ttH":
     if kwargs["productionmode"] in ("HZZ", "HWW") and kwargs["pdfset"] != "NNPDF30_lo_as_0130": continue
     if kwargs["productionmode"] != productionmode is not None: continue
-    for kwargs["hypothesis"] in "a1", "a2", "a3", "L1", "L1Zg", "a1a2", "a1a3", "a1L1", "a1L1Zg", "a2a3", "a2L1", "a2L1Zg", "a3L1", "a3L1Zg", "L1L1Zg":
+    for kwargs["hypothesis"] in "a1", "a2", "a3", "L1", "L1Zg", "a1a2", "a1a3", "a1L1", "a1L1Zg", "a2a3", "a2L1", "a2L1Zg", "a3L1", "a3L1Zg", "L1L1Zg", "kappa", "kappatilde", "kappakappatilde":
       if "L1Zg" in kwargs["hypothesis"] and kwargs["productionmode"] in ("WH", "HWW"): continue
-      if kwargs["hypothesis"] not in ("a2", "a3", "a2a3") and kwargs["productionmode"] in ("HJJ", "ttH"): continue
+      if kwargs["hypothesis"] not in ("a2", "a3", "a2a3") and kwargs["productionmode"] == "HJJ": continue
+      if kwargs["hypothesis"] not in ("kappa", "kappatilde", "kappakappatilde") and kwargs["productionmode"] == "ttH": continue
+      if kwargs["hypothesis"] in ("kappa", "kappatilde", "kappakappatilde") and kwargs["productionmode"] not in ("ggZH", "ttH"): continue
+
+      #can't do ggZH mixtures yet
+      if kwargs["hypothesis"] in ("a1a2", "a1a3", "a1L1", "a1L1Zg", "a2a3", "a2L1", "a2L1Zg", "a3L1", "a3L1Zg", "L1L1Zg", "kappakappatilde") and kwargs["productionmode"] == "ggZH": continue
+
       if kwargs["hypothesis"] != hypothesis is not None: continue
 
       if whattodo == "submit":
@@ -228,8 +256,6 @@ def main(whattodo, ufloat, pdfset, productionmode=None, hypothesis=None):
         if ufloat:
           fmt = "{:26} = ufloat({:14.8g}, {:14.8g})"
           name = "JHUXS"+name.replace("_", "").replace("HZZ", "HZZ2L2l")
-          if kwargs["productionmode"] == "ttH":
-            name = name.replace("a2", "kappa").replace("a3", "kappatilde")
         print fmt.format(name, numerator/denominator, 1/denominator**.5)
       else:
         assert False
@@ -240,7 +266,7 @@ if __name__ == "__main__":
   p.add_argument("whattodo", choices=("submit", "calc"))
   p.add_argument("--ufloat", action="store_true")
   p.add_argument("--pdf", default="NNPDF30_lo_as_0130", choices=("NNPDF30_lo_as_0130", "NNPDF31_lo_as_0130"))
-  p.add_argument("--productionmode", choices=("HZZ", "HWW", "VBF", "ZH", "WH", "HJJ", "ttH"))
+  p.add_argument("--productionmode", choices=("HZZ", "HWW", "VBF", "ZH", "WH", "HJJ", "ttH", "ggZH"))
   p.add_argument("--hypothesis", choices=("a1", "a2", "a3", "L1", "L1Zg", "a1a2", "a1a3", "a1L1", "a1L1Zg", "a2a3", "a2L1", "a2L1Zg", "a3L1", "a3L1Zg", "L1L1Zg"))
   args = p.parse_args()
   main(args.whattodo, args.ufloat, args.pdf, args.productionmode, args.hypothesis)
