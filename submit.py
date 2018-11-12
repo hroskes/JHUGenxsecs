@@ -83,7 +83,7 @@ class Sample(object):
 
     if self.productionmode == "ttH":
       if self.hypothesis == "a2":
-        return "kappa=1,0"
+        return ["kappa=1,0"]
       if self.hypothesis == "a3":
         return ["kappa=0,0", "kappa_tilde=1,0"]
       if self.hypothesis == "a2a3":
@@ -228,6 +228,8 @@ def main(whattodo, ufloat, pdfset, productionmode=None, hypothesis=None):
         if ufloat:
           fmt = "{:26} = ufloat({:14.8g}, {:14.8g})"
           name = "JHUXS"+name.replace("_", "").replace("HZZ", "HZZ2L2l")
+          if kwargs["productionmode"] == "ttH":
+            name = name.replace("a2", "kappa").replace("a3", "kappatilde")
         print fmt.format(name, numerator/denominator, 1/denominator**.5)
       else:
         assert False
