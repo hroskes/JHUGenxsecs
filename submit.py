@@ -1,5 +1,19 @@
 #!/usr/bin/env python
 
+hypotheses = "a1", "a2", "a3", "L1", "L1Zg", "a1a2", "a1a3", "a1L1", "a1L1Zg", "a2a3", "a2L1", "a2L1Zg", "a3L1", "a3L1Zg", "L1L1Zg", "kappa", "kappatilde", "kappakappatilde"
+productionmodes = "HZZ", "HWW", "VBF", "ZH", "WH", "HJJ", "ttH", "ggZH"
+
+if __name__ == "__main__":
+  import argparse
+  p = argparse.ArgumentParser()
+  p.add_argument("whattodo", choices=("submit", "calc"))
+  p.add_argument("--ufloat", action="store_true")
+  p.add_argument("--pdf", default="NNPDF30_lo_as_0130", choices=("NNPDF30_lo_as_0130", "NNPDF31_lo_as_0130"))
+  p.add_argument("--productionmode", choices=productionmodes)
+  p.add_argument("--hypothesis", choices=hypotheses)
+  args = p.parse_args()
+
+
 from itertools import count
 import os
 import pipes
@@ -107,9 +121,9 @@ class Sample(object):
         return ["kappa=0,0", "ghz1=0,0", "ghzgs1_prime2=1,0"]
 
       if self.hypothesis == "kappa":
-        return ["ghz1=0,0", "kappa=1,0"]
+        return ["VH_PC=bo", "ghz1=0,0", "kappa=1,0"]
       if self.hypothesis == "kappatilde":
-        return ["ghz1=0,0", "kappa=0,0", "kappa_tilde=1,0"]
+        return ["VH_PC=bo", "ghz1=0,0", "kappa=0,0", "kappa_tilde=1,0"]
       assert False
 
     if self.hypothesis == "a1":
@@ -171,10 +185,15 @@ class Sample(object):
     commands = [link, export, self.commandline()]
     jobtext = " && ".join(" ".join(pipes.quote(_) for _ in command) for command in commands)
     print jobtext
+
+    jobtime = "1-0:0:0"
+    if self.productionmode in "HZZ HWW": jobtime = "2-0:0:0"
+    if self.productionmode == "ggZH" and "kappa" in self.hypothesis: jobtime = "10-0:0:0"
+
     submitjob(
       jobtext = jobtext,
       jobname = self.jobname,
-      jobtime = "2-0:0:0" if self.productionmode in "HZZ HWW" else "1-0:0:0",
+      jobtime = jobtime,
       outputfile = self.outputfile,
       email = True,
       docd=True,
@@ -216,11 +235,12 @@ def main(whattodo, ufloat, pdfset, productionmode=None, hypothesis=None):
 
   kwargs = {}
   kwargs["pdfset"] = pdfset
-  for kwargs["productionmode"] in "VBF", "ZH", "WH", "HZZ", "HWW", "HJJ", "ttH":
+  for kwargs["productionmode"] in productionmodes:
     if kwargs["productionmode"] in ("HZZ", "HWW") and kwargs["pdfset"] != "NNPDF30_lo_as_0130": continue
     if kwargs["productionmode"] != productionmode is not None: continue
-    for kwargs["hypothesis"] in "a1", "a2", "a3", "L1", "L1Zg", "a1a2", "a1a3", "a1L1", "a1L1Zg", "a2a3", "a2L1", "a2L1Zg", "a3L1", "a3L1Zg", "L1L1Zg", "kappa", "kappatilde", "kappakappatilde":
+    for kwargs["hypothesis"] in hypotheses:
       if "L1Zg" in kwargs["hypothesis"] and kwargs["productionmode"] in ("WH", "HWW"): continue
+      if "a3" in kwargs["hypothesis"] and kwargs["productionmode"] == "ggZH": continue
       if kwargs["hypothesis"] not in ("a2", "a3", "a2a3") and kwargs["productionmode"] == "HJJ": continue
       if kwargs["hypothesis"] not in ("kappa", "kappatilde", "kappakappatilde") and kwargs["productionmode"] == "ttH": continue
       if kwargs["hypothesis"] in ("kappa", "kappatilde", "kappakappatilde") and kwargs["productionmode"] not in ("ggZH", "ttH"): continue
@@ -261,12 +281,4 @@ def main(whattodo, ufloat, pdfset, productionmode=None, hypothesis=None):
         assert False
 
 if __name__ == "__main__":
-  import argparse
-  p = argparse.ArgumentParser()
-  p.add_argument("whattodo", choices=("submit", "calc"))
-  p.add_argument("--ufloat", action="store_true")
-  p.add_argument("--pdf", default="NNPDF30_lo_as_0130", choices=("NNPDF30_lo_as_0130", "NNPDF31_lo_as_0130"))
-  p.add_argument("--productionmode", choices=("HZZ", "HWW", "VBF", "ZH", "WH", "HJJ", "ttH", "ggZH"))
-  p.add_argument("--hypothesis", choices=("a1", "a2", "a3", "L1", "L1Zg", "a1a2", "a1a3", "a1L1", "a1L1Zg", "a2a3", "a2L1", "a2L1Zg", "a3L1", "a3L1Zg", "L1L1Zg"))
-  args = p.parse_args()
   main(args.whattodo, args.ufloat, args.pdf, args.productionmode, args.hypothesis)
