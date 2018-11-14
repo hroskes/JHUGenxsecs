@@ -8,6 +8,7 @@ if __name__ == "__main__":
   p = argparse.ArgumentParser()
   p.add_argument("whattodo", choices=("submit", "calc"))
   p.add_argument("--ufloat", action="store_true")
+  p.add_argument("--dryrun", action="store_true")
   p.add_argument("--pdf", default="NNPDF30_lo_as_0130", choices=("NNPDF30_lo_as_0130", "NNPDF31_lo_as_0130"))
   p.add_argument("--productionmode", choices=productionmodes)
   p.add_argument("--hypothesis", choices=hypotheses)
@@ -19,8 +20,8 @@ import os
 import pipes
 import re
 import subprocess
-from helperstuff.submitjob import submitjob
 
+from helperstuff.submitjob import submitjob
 import constants
 
 here = os.path.abspath(os.path.dirname(__file__))
@@ -90,6 +91,8 @@ class Sample(object):
 
   @property
   def couplings(self):
+    result = []
+
     if self.productionmode == "HJJ":
       if self.hypothesis == "a2":
         return ["ghg2=1,0"]
@@ -109,22 +112,14 @@ class Sample(object):
       assert False
 
     if self.productionmode == "ggZH":
-      if self.hypothesis == "a1":
-        return ["kappa=0,0", "ghz1=1,0"]
-      if self.hypothesis == "a2":
-        return ["kappa=0,0", "ghz1=0,0", "ghz2=1,0"]
-      if self.hypothesis == "a3":
-        return ["kappa=0,0", "ghz1=0,0", "ghz4=1,0"]
-      if self.hypothesis == "L1":
-        return ["kappa=0,0", "ghz1=0,0", "ghz1_prime2=1,0"]
-      if self.hypothesis == "L1Zg":
-        return ["kappa=0,0", "ghz1=0,0", "ghzgs1_prime2=1,0"]
-
       if self.hypothesis == "kappa":
         return ["VH_PC=bo", "ghz1=0,0", "kappa=1,0"]
-      if self.hypothesis == "kappatilde":
+      elif self.hypothesis == "kappatilde":
         return ["VH_PC=bo", "ghz1=0,0", "kappa=0,0", "kappa_tilde=1,0"]
-      assert False
+      elif "kappa" not in self.hypothesis:
+        result.append("kappa=0,0")
+      else:
+        assert False
 
     if self.hypothesis == "a1":
       return ["ghz1=1,0"]
@@ -139,7 +134,6 @@ class Sample(object):
 
     match = re.match("(a1|a2|a3|L1|L1Zg)(a1|a2|a3|L1|L1Zg)$", self.hypothesis)
     assert match
-    result = []
     if "a1" not in self.hypothesis: result.append("ghz1=0,0")
     for g in range(1, 3):
       coupling = match.group(g)
@@ -166,7 +160,7 @@ class Sample(object):
   def outputfile(self):
     return os.path.join(here, self.pdfset, self.printname+".out")
 
-  def submit(self):
+  def submit(self, dryrun):
     if os.path.exists(self.outputfile): return
     if re.search(r"\b"+self.jobname+r"\b", subprocess.check_output(["bjobs"])): return
 
@@ -187,8 +181,11 @@ class Sample(object):
     print jobtext
 
     jobtime = "1-0:0:0"
+    queue = "shared"
     if self.productionmode in "HZZ HWW": jobtime = "2-0:0:0"
-    if self.productionmode == "ggZH" and "kappa" in self.hypothesis: jobtime = "10-0:0:0"
+    if self.productionmode == "ggZH" and "kappa" in self.hypothesis: jobtime = "10-0:0:0"; queue = "unlimited"
+
+    if dryrun: return
 
     submitjob(
       jobtext = jobtext,
@@ -196,7 +193,8 @@ class Sample(object):
       jobtime = jobtime,
       outputfile = self.outputfile,
       email = True,
-      docd=True,
+      docd = True,
+      queue = queue,
     )
 
   @property
@@ -245,14 +243,14 @@ def main(whattodo, ufloat, pdfset, productionmode=None, hypothesis=None):
       if kwargs["hypothesis"] not in ("kappa", "kappatilde", "kappakappatilde") and kwargs["productionmode"] == "ttH": continue
       if kwargs["hypothesis"] in ("kappa", "kappatilde", "kappakappatilde") and kwargs["productionmode"] not in ("ggZH", "ttH"): continue
 
-      #can't do ggZH mixtures yet
-      if kwargs["hypothesis"] in ("a1a2", "a1a3", "a1L1", "a1L1Zg", "a2a3", "a2L1", "a2L1Zg", "a3L1", "a3L1Zg", "L1L1Zg", "kappakappatilde") and kwargs["productionmode"] == "ggZH": continue
+      #can't do ggZH fermion mixtures yet
+      if kwargs["hypothesis"] in ("kappakappatilde",) and kwargs["productionmode"] == "ggZH": continue
 
       if kwargs["hypothesis"] != hypothesis is not None: continue
 
       if whattodo == "submit":
         for kwargs["index"] in range(1, 1+Sample.nfiles(**kwargs)):
-          Sample(**kwargs).submit()
+          Sample(**kwargs).submit(dryrun=args.dryrun)
 
       elif whattodo == "calc":
         numerator = denominator = 0
