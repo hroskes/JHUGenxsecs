@@ -1,0 +1,125 @@
+SLURM job running in:  /work-zfs/lhc/heshy/JHUGen/xsecs/JHUGen_interference/JHUGenerator/xsecs
+LHAPDF 6.2.1 loading /work-zfs/lhc/cms7/slc7_amd64_gcc630/external/lhapdf/6.2.1-fmblme/share/LHAPDF/NNPDF31_lo_as_0130/NNPDF31_lo_as_0130_0000.dat
+NNPDF31_lo_as_0130 PDF set, member #0, version 1; LHAPDF ID = 315200
+                                                            
+         *******************************************        
+         *              C O L L I E R              *        
+         *                                         *        
+         *        Complex One-Loop Library         *        
+         *      In Extended Regularizations        *        
+         *                                         *        
+         *    by A.Denner, S.Dittmaier, L.Hofer    *        
+         *                                         *        
+         *              version  1.2               *        
+         *                                         *        
+         *******************************************        
+                                                            
+                                                           
+ ***********************************************************
+                                                            
+   COLLIER: information on settings and internal parameters 
+     is written to the file workdir/ggZH_kappa_NNPDF31_lo_as_0130_collierfiles/InfOut.cll
+                                                            
+ ***********************************************************
+                                                            
+ 
+  
+  ***************************************************************************************
+  *                                JHU Generator v7.2.3                                 *
+  ***************************************************************************************
+  *                                                                                     *
+  *   Spin and parity determination of single-produced resonances at hadron colliders   *
+  *                                                                                     *
+  *              I. Anderson, S. Bolognesi, F. Caola, Y. Gao, A. Gritsan,               *
+  *          Z. Guo, C. Martin, K. Melnikov, R. Rontsch, H. Roskes, U. Sarica,          *
+  *                 M. Schulze, N. Tran, A. Whitbeck, M. Xiao, Y. Zhou                  *
+  *              Phys.Rev. D81 (2010) 075022;  arXiv:1001.3396  [hep-ph],               *
+  *              Phys.Rev. D86 (2012) 095031;  arXiv:1208.4018  [hep-ph],               *
+  *              Phys.Rev. D89 (2014) 035007;  arXiv:1309.4819  [hep-ph],               *
+  *              Phys.Rev. D94 (2016) 055023;  arXiv:1606.03107 [hep-ph].               *
+  *                                                                                     *
+  ***************************************************************************************
+  
+   
+   Command line: /work-zfs/lhc/heshy/JHUGen/xsecs/JHUGen_interference/JHUGenerator/xsecs/../JHUGen Unweighted=0 VegasNc0=99999999 VegasNc1=99999999 VegasNc2=99999999 LHAPDF=NNPDF31_lo_as_0130/NNPDF31_lo_as_0130.info DataFile=workdir/ggZH_kappa_NNPDF31_lo_as_0130 MPhotonCutoff=0 Process=51 DecayMode1=9 VH_PC=bo ghz1=0,0 kappa=1,0
+   
+   Input Parameter:
+    Collider: P-P, sqrt(s)=13000.00
+    Resonance: spin=0, mass= 125.00 width=   0.00407
+    Random seed:   659623175
+    To reproduce results using this seed, JHUGen should be compiled with the same compiler:
+      GNU Fortran (GCC) 6.3.0
+    
+    WidthScheme:   2
+    LHAPDF set NNPDF31_lo_as_0130/NNPDF31_lo_as_0130.info, member=  0
+    Unweighted: F
+    
+    spin-0-ff couplings: 
+      kappa=  0.10000000E+01  0.00000000E+00i
+      Lambda=  1000.0
+    
+    LHE output: workdir/ggZH_kappa_NNPDF31_lo_as_0130.lhe
+    Histogram output: workdir/ggZH_kappa_NNPDF31_lo_as_0130.dat
+    Log file: workdir/ggZH_kappa_NNPDF31_lo_as_0130.log
+    
+  Running
+
+  Input parameters for vegas:  ndim= 19   ncall= 99999999.
+                              it=    0    itmx=    5
+                              acc=-1.00    
+                              mds=  0     nd= 250
+                              (xl,xu)= (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+
+#********** Integration by Vegas (iteration       1) ************
+#                                                               *
+#  integral  =  47.199962       accum. integral =  47.199962    *
+#  std. dev. = 0.76444657E-01   accum. std. dev = 0.76444657E-01*
+#   min/max. wt. =   0.131048E-35        0.610431E-03           *
+#                                                               *
+#*************   chi**2/iteration = 0.7782E-07   ****************
+
+
+#********** Integration by Vegas (iteration       2) ************
+#                                                               *
+#  integral  =  47.173423       accum. integral =  47.174747    *
+#  std. dev. = 0.17510169E-01   accum. std. dev = 0.17072458E-01*
+#   min/max. wt. =   0.648919E-30        0.339018E-04           *
+#                                                               *
+#*************   chi**2/iteration = 0.1145       ****************
+
+
+#********** Integration by Vegas (iteration       3) ************
+#                                                               *
+#  integral  =  47.160282       accum. integral =  47.165065    *
+#  std. dev. = 0.11991459E-01   accum. std. dev = 0.98146206E-02*
+#   min/max. wt. =   0.408401E-29        0.253997E-04           *
+#                                                               *
+#*************   chi**2/iteration = 0.2975       ****************
+
+
+#********** Integration by Vegas (iteration       4) ************
+#                                                               *
+#  integral  =  47.180984       accum. integral =  47.172423    *
+#  std. dev. = 0.10587073E-01   accum. std. dev = 0.71974905E-02*
+#   min/max. wt. =   0.359181E-28        0.332180E-04           *
+#                                                               *
+#*************   chi**2/iteration = 0.6036       ****************
+
