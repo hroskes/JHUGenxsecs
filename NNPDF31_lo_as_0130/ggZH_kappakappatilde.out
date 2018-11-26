@@ -157,3 +157,15 @@ NNPDF31_lo_as_0130 PDF set, member #0, version 1; LHAPDF ID = 315200
                                        (  0.00000     ,  1.00000     )
                                        (  0.00000     ,  1.00000     )
                                        (  0.00000     ,  1.00000     )
+
+#********** Integration by Vegas (iteration       1) ************
+#                                                               *
+#  integral  =  94.298014       accum. integral =  94.298014    *
+#  std. dev. = 0.18572335E-01   accum. std. dev = 0.18572335E-01*
+#   min/max. wt. =   0.322464E-22        0.220272E-03           *
+#                                                               *
+#*************   chi**2/iteration = 0.1055E-04   ****************
+
+Thanks for using LHAPDF 6.2.1. Please make sure to cite the paper:
+  Eur.Phys.J. C75 (2015) 3, 132  (http://arxiv.org/abs/1412.7420)
+ Done
