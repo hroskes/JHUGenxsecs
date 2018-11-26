@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-hypotheses = "a1", "a2", "a3", "L1", "L1Zg", "a1a2", "a1a3", "a1L1", "a1L1Zg", "a2a3", "a2L1", "a2L1Zg", "a3L1", "a3L1Zg", "L1L1Zg", "kappa", "kappatilde", "kappakappatilde"
+hypotheses = "a1", "a2", "a3", "L1", "L1Zg", "a1a2", "a1a3", "a1L1", "a1L1Zg", "a2a3", "a2L1", "a2L1Zg", "a3L1", "a3L1Zg", "L1L1Zg", "kappa", "kappatilde", "kappakappatilde", "a1kappa", "a2kappa", "a3kappa", "L1kappa", "L1Zgkappa", "a1kappatilde", "a2kappatilde", "a3kappatilde", "L1kappatilde", "L1Zgkappatilde"
 productionmodes = "HZZ", "HWW", "VBF", "ZH", "WH", "HJJ", "ttH", "ggZH"
 
 if __name__ == "__main__":
@@ -116,10 +116,23 @@ class Sample(object):
         return ["VH_PC=bo", "ghz1=0,0", "kappa=1,0"]
       elif self.hypothesis == "kappatilde":
         return ["VH_PC=bo", "ghz1=0,0", "kappa=0,0", "kappa_tilde=1,0"]
+      elif self.hypothesis == "kappakappatilde":
+        return ["VH_PC=bo", "ghz1=0,0", "kappa=1,0", "kappa_tilde={},0".format(constants.kappa_tilde_ggZH)]
       elif "kappa" not in self.hypothesis:
         result.append("kappa=0,0")
       else:
-        assert False
+        match = re.match("(a1|a2|a3|L1|L1Zg)(kappa|kappatilde)$", self.hypothesis)
+        assert match, self.hypothesis
+        if "a1" not in self.hypothesis: result.append("ghz1=0,0")
+        VVcoupling = match.group(1)
+        result.append("{}={},0".format(self.JHUGencoupling(VVcoupling), self.couplingvalue(VVcoupling)))
+        ffcoupling = match.group(2)
+        result += {
+          "kappa": ["kappa=1,0"],
+          "kappatilde": ["kappa=0,0", "kappa_tilde={},0".format(constants.kappa_tilde_ggZH)]
+        }[ffcoupling]
+        return result
+        
 
     if self.hypothesis == "a1":
       return ["ghz1=1,0"]
@@ -133,7 +146,7 @@ class Sample(object):
       return ["ghz1=0,0", "ghzgs1_prime2=1,0"]
 
     match = re.match("(a1|a2|a3|L1|L1Zg)(a1|a2|a3|L1|L1Zg)$", self.hypothesis)
-    assert match
+    assert match, self.hypothesis
     if "a1" not in self.hypothesis: result.append("ghz1=0,0")
     for g in range(1, 3):
       coupling = match.group(g)
@@ -178,14 +191,14 @@ class Sample(object):
     ]
     commands = [link, export, self.commandline()]
     jobtext = " && ".join(" ".join(pipes.quote(_) for _ in command) for command in commands)
-    print jobtext
+    print jobtext.split("&&")[-1]
 
     jobtime = "1-0:0:0"
     queue = "shared"
     if self.productionmode in "HZZ HWW": jobtime = "2-0:0:0"
     if self.productionmode == "ggZH" and "kappa" in self.hypothesis: jobtime = "10-0:0:0"; queue = "unlimited"
 
-    if dryrun: return
+    if dryrun: print; return
 
     submitjob(
       jobtext = jobtext,
@@ -227,7 +240,7 @@ class Sample(object):
     if productionmode in ("VBF", "HZZ", "HWW", "HJJ", "ttH", "ggZH"): return 1
     assert False, (productionmode, hypothesis)
 
-def main(whattodo, ufloat, pdfset, productionmode=None, hypothesis=None):
+def main(whattodo, ufloat, pdfset, productionmode=None, hypothesis=None, dryrun=False):
   folder = os.path.join(here, pdfset)
   if not os.path.exists(folder): os.mkdir(folder)
 
@@ -242,15 +255,13 @@ def main(whattodo, ufloat, pdfset, productionmode=None, hypothesis=None):
       if kwargs["hypothesis"] not in ("a2", "a3", "a2a3") and kwargs["productionmode"] == "HJJ": continue
       if kwargs["hypothesis"] not in ("kappa", "kappatilde", "kappakappatilde") and kwargs["productionmode"] == "ttH": continue
       if kwargs["hypothesis"] in ("kappa", "kappatilde", "kappakappatilde") and kwargs["productionmode"] not in ("ggZH", "ttH"): continue
-
-      #can't do ggZH fermion mixtures yet
-      if kwargs["hypothesis"] in ("kappakappatilde",) and kwargs["productionmode"] == "ggZH": continue
+      if re.match("(a1|a2|a3|L1|L1Zg)(kappa|kappatilde)", kwargs["hypothesis"]) and kwargs["productionmode"] != "ggZH": continue
 
       if kwargs["hypothesis"] != hypothesis is not None: continue
 
       if whattodo == "submit":
         for kwargs["index"] in range(1, 1+Sample.nfiles(**kwargs)):
-          Sample(**kwargs).submit(dryrun=args.dryrun)
+          Sample(**kwargs).submit(dryrun=dryrun)
 
       elif whattodo == "calc":
         numerator = denominator = 0
@@ -279,4 +290,4 @@ def main(whattodo, ufloat, pdfset, productionmode=None, hypothesis=None):
         assert False
 
 if __name__ == "__main__":
-  main(args.whattodo, args.ufloat, args.pdf, args.productionmode, args.hypothesis)
+  main(args.whattodo, args.ufloat, args.pdf, args.productionmode, args.hypothesis, dryrun=args.dryrun)

@@ -1,5 +1,5 @@
 SLURM job running in:  /work-zfs/lhc/heshy/JHUGen/xsecs/JHUGen_interference/JHUGenerator/xsecs
-LHAPDF 6.2.1 loading /work-zfs/lhc/cms7/slc7_amd64_gcc630/external/lhapdf/6.2.1-fmblme/share/LHAPDF/NNPDF31_lo_as_0130/NNPDF31_lo_as_0130_0000.dat
+LHAPDF 6.2.1 loading /work-zfs/lhc/cms9/slc6_amd64_gcc630/external/lhapdf/6.2.1-omkpbe3/share/LHAPDF/NNPDF31_lo_as_0130/NNPDF31_lo_as_0130_0000.dat
 NNPDF31_lo_as_0130 PDF set, member #0, version 1; LHAPDF ID = 315200
                                                             
          *******************************************        
@@ -18,7 +18,7 @@ NNPDF31_lo_as_0130 PDF set, member #0, version 1; LHAPDF ID = 315200
  ***********************************************************
                                                             
    COLLIER: information on settings and internal parameters 
-     is written to the file workdir/ggZH_kappa_NNPDF31_lo_as_0130_collierfiles/InfOut.cll
+     is written to the file workdir/ggZH_L1Zgkappatilde_NNPDF31_lo_as_0130_collierfiles/InfOut.cll
                                                             
  ***********************************************************
                                                             
@@ -41,12 +41,12 @@ NNPDF31_lo_as_0130 PDF set, member #0, version 1; LHAPDF ID = 315200
   ***************************************************************************************
   
    
-   Command line: /work-zfs/lhc/heshy/JHUGen/xsecs/JHUGen_interference/JHUGenerator/xsecs/../JHUGen Unweighted=0 VegasNc0=99999999 VegasNc1=99999999 VegasNc2=99999999 LHAPDF=NNPDF31_lo_as_0130/NNPDF31_lo_as_0130.info DataFile=workdir/ggZH_kappa_NNPDF31_lo_as_0130 MPhotonCutoff=0 Process=51 DecayMode1=9 VH_PC=bo ghz1=0,0 kappa=1,0
+   Command line: /work-zfs/lhc/heshy/JHUGen/xsecs/JHUGen_interference/JHUGenerator/xsecs/../JHUGen Unweighted=0 VegasNc0=99999999 VegasNc1=99999999 VegasNc2=99999999 LHAPDF=NNPDF31_lo_as_0130/NNPDF31_lo_as_0130.info DataFile=workdir/ggZH_L1Zgkappatilde_NNPDF31_lo_as_0130 MPhotonCutoff=0 Process=51 DecayMode1=9 ghz1=0,0 ghzgs1_prime2=-57787,0 kappa=0,0 kappa_tilde=0.9475,0
    
    Input Parameter:
     Collider: P-P, sqrt(s)=13000.00
     Resonance: spin=0, mass= 125.00 width=   0.00407
-    Random seed:   659623175
+    Random seed:   600774978
     To reproduce results using this seed, JHUGen should be compiled with the same compiler:
       GNU Fortran (GCC) 6.3.0
     
@@ -54,13 +54,17 @@ NNPDF31_lo_as_0130 PDF set, member #0, version 1; LHAPDF ID = 315200
     LHAPDF set NNPDF31_lo_as_0130/NNPDF31_lo_as_0130.info, member=  0
     Unweighted: F
     
+    spin-0-VV couplings: 
+      generate_as=F
+      ghg2=  0.10000000E+01  0.00000000E+00i
+      ghzgs1_prime2= -0.57787000E+05  0.00000000E+00i,  Lambda_zgs1=  1.0000E+04
     spin-0-ff couplings: 
-      kappa=  0.10000000E+01  0.00000000E+00i
+      kappa_tilde=  0.94750000E+00  0.00000000E+00i
       Lambda=  1000.0
     
-    LHE output: workdir/ggZH_kappa_NNPDF31_lo_as_0130.lhe
-    Histogram output: workdir/ggZH_kappa_NNPDF31_lo_as_0130.dat
-    Log file: workdir/ggZH_kappa_NNPDF31_lo_as_0130.log
+    LHE output: workdir/ggZH_L1Zgkappatilde_NNPDF31_lo_as_0130.lhe
+    Histogram output: workdir/ggZH_L1Zgkappatilde_NNPDF31_lo_as_0130.dat
+    Log file: workdir/ggZH_L1Zgkappatilde_NNPDF31_lo_as_0130.log
     
   Running
 
@@ -87,50 +91,51 @@ NNPDF31_lo_as_0130 PDF set, member #0, version 1; LHAPDF ID = 315200
                                        (  0.00000     ,  1.00000     )
                                        (  0.00000     ,  1.00000     )
                                        (  0.00000     ,  1.00000     )
+ Warning, gamma > nu nu~ gives 0.          16         -16
 
 #********** Integration by Vegas (iteration       1) ************
 #                                                               *
-#  integral  =  47.199962       accum. integral =  47.199962    *
-#  std. dev. = 0.76444657E-01   accum. std. dev = 0.76444657E-01*
-#   min/max. wt. =   0.131048E-35        0.610431E-03           *
+#  integral  =  104.97876       accum. integral =  104.97876    *
+#  std. dev. =  1.1302022       accum. std. dev =  1.1302022    *
+#   min/max. wt. =   0.892480E-33        0.159684               *
 #                                                               *
-#*************   chi**2/iteration = 0.7782E-07   ****************
+#*************   chi**2/iteration =  0.000       ****************
 
 
 #********** Integration by Vegas (iteration       2) ************
 #                                                               *
-#  integral  =  47.173423       accum. integral =  47.174747    *
-#  std. dev. = 0.17510169E-01   accum. std. dev = 0.17072458E-01*
-#   min/max. wt. =   0.648919E-30        0.339018E-04           *
+#  integral  =  104.14884       accum. integral =  104.15398    *
+#  std. dev. = 0.88485160E-01   accum. std. dev = 0.88563070E-01*
+#   min/max. wt. =   0.446072E-29        0.299338E-02           *
 #                                                               *
-#*************   chi**2/iteration = 0.1145       ****************
+#*************   chi**2/iteration = 0.5396       ****************
 
 
 #********** Integration by Vegas (iteration       3) ************
 #                                                               *
-#  integral  =  47.160282       accum. integral =  47.165065    *
-#  std. dev. = 0.11991459E-01   accum. std. dev = 0.98146206E-02*
-#   min/max. wt. =   0.408401E-29        0.253997E-04           *
+#  integral  =  104.30385       accum. integral =  104.28003    *
+#  std. dev. = 0.38396563E-01   accum. std. dev = 0.35272965E-01*
+#   min/max. wt. =   0.344519E-26        0.290433E-03           *
 #                                                               *
-#*************   chi**2/iteration = 0.2975       ****************
+#*************   chi**2/iteration =  1.476       ****************
 
 
 #********** Integration by Vegas (iteration       4) ************
 #                                                               *
-#  integral  =  47.180984       accum. integral =  47.172423    *
-#  std. dev. = 0.10587073E-01   accum. std. dev = 0.71974905E-02*
-#   min/max. wt. =   0.359181E-28        0.332180E-04           *
+#  integral  =  104.21253       accum. integral =  104.24080    *
+#  std. dev. = 0.29863531E-01   accum. std. dev = 0.22811199E-01*
+#   min/max. wt. =   0.494403E-27        0.159277E-03           *
 #                                                               *
-#*************   chi**2/iteration = 0.6036       ****************
+#*************   chi**2/iteration =  1.696       ****************
 
 
 #********** Integration by Vegas (iteration       5) ************
 #                                                               *
-#  integral  =  47.153696       accum. integral =  47.166105    *
-#  std. dev. = 0.10081693E-01   accum. std. dev = 0.58582874E-02*
-#   min/max. wt. =   0.101037E-28        0.584051E-04           *
+#  integral  =  104.21652       accum. integral =  104.23068    *
+#  std. dev. = 0.26947416E-01   accum. std. dev = 0.17417790E-01*
+#   min/max. wt. =   0.307789E-25        0.164909E-03           *
 #                                                               *
-#*************   chi**2/iteration =  1.024       ****************
+#*************   chi**2/iteration =  1.391       ****************
 
 
   Input parameters for vegas:  ndim= 19   ncall= 99999999.
@@ -159,9 +164,9 @@ NNPDF31_lo_as_0130 PDF set, member #0, version 1; LHAPDF ID = 315200
 
 #********** Integration by Vegas (iteration       1) ************
 #                                                               *
-#  integral  =  47.153498       accum. integral =  47.153498    *
-#  std. dev. = 0.98744171E-02   accum. std. dev = 0.98744171E-02*
-#   min/max. wt. =   0.477636E-30        0.832899E-04           *
+#  integral  =  104.21117       accum. integral =  104.21117    *
+#  std. dev. = 0.25763886E-01   accum. std. dev = 0.25763886E-01*
+#   min/max. wt. =   0.449122E-27        0.245095E-03           *
 #                                                               *
 #*************   chi**2/iteration =  0.000       ****************
 
