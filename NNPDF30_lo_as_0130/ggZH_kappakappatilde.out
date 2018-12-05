@@ -97,3 +97,75 @@ NNPDF30_lo_as_0130 PDF set, member #0, version 2; LHAPDF ID = 263000
 #                                                               *
 #*************   chi**2/iteration =  0.000       ****************
 
+
+#********** Integration by Vegas (iteration       2) ************
+#                                                               *
+#  integral  =  91.300815       accum. integral =  91.314283    *
+#  std. dev. = 0.31735879E-01   accum. std. dev = 0.31008739E-01*
+#   min/max. wt. =   0.121613E-30        0.655069E-04           *
+#                                                               *
+#*************   chi**2/iteration =  3.720       ****************
+
+
+#********** Integration by Vegas (iteration       3) ************
+#                                                               *
+#  integral  =  91.298567       accum. integral =  91.303765    *
+#  std. dev. = 0.21764306E-01   accum. std. dev = 0.17823619E-01*
+#   min/max. wt. =   0.130529E-25        0.461463E-04           *
+#                                                               *
+#*************   chi**2/iteration =  1.949       ****************
+
+
+#********** Integration by Vegas (iteration       4) ************
+#                                                               *
+#  integral  =  91.282244       accum. integral =  91.293824    *
+#  std. dev. = 0.19213203E-01   accum. std. dev = 0.13070243E-01*
+#   min/max. wt. =   0.616050E-25        0.547360E-04           *
+#                                                               *
+#*************   chi**2/iteration =  1.525       ****************
+
+
+#********** Integration by Vegas (iteration       5) ************
+#                                                               *
+#  integral  =  91.289376       accum. integral =  91.292323    *
+#  std. dev. = 0.18299279E-01   accum. std. dev = 0.10637100E-01*
+#   min/max. wt. =   0.484362E-23        0.119031E-03           *
+#                                                               *
+#*************   chi**2/iteration =  1.154       ****************
+
+
+  Input parameters for vegas:  ndim= 19   ncall= 99999999.
+                              it=    0    itmx=    1
+                              acc=-1.00    
+                              mds=  0     nd= 250
+                              (xl,xu)= (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+                                       (  0.00000     ,  1.00000     )
+
+#********** Integration by Vegas (iteration       1) ************
+#                                                               *
+#  integral  =  91.269129       accum. integral =  91.269129    *
+#  std. dev. = 0.17922304E-01   accum. std. dev = 0.17922304E-01*
+#   min/max. wt. =   0.371576E-24        0.159937E-03           *
+#                                                               *
+#*************   chi**2/iteration =  0.000       ****************
+
+Thanks for using LHAPDF 6.2.1. Please make sure to cite the paper:
+  Eur.Phys.J. C75 (2015) 3, 132  (http://arxiv.org/abs/1412.7420)
+ Done
