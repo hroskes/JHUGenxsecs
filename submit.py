@@ -251,7 +251,7 @@ def main(whattodo, ufloat, pdfset, productionmode=None, hypothesis=None, dryrun=
     if kwargs["productionmode"] != productionmode is not None: continue
     for kwargs["hypothesis"] in hypotheses:
       if "L1Zg" in kwargs["hypothesis"] and kwargs["productionmode"] in ("WH", "HWW"): continue
-      if "a3" in kwargs["hypothesis"] and kwargs["productionmode"] == "ggZH": continue
+      if ("a3" in kwargs["hypothesis"] or "a2" in kwargs["hypothesis"]) and kwargs["productionmode"] == "ggZH": continue
       if kwargs["hypothesis"] not in ("a2", "a3", "a2a3") and kwargs["productionmode"] == "HJJ": continue
       if kwargs["hypothesis"] not in ("kappa", "kappatilde", "kappakappatilde") and kwargs["productionmode"] == "ttH": continue
       if kwargs["hypothesis"] in ("kappa", "kappatilde", "kappakappatilde") and kwargs["productionmode"] not in ("ggZH", "ttH"): continue
