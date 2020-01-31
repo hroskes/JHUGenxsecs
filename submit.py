@@ -284,7 +284,7 @@ def main(whattodo, ufloat, pdfset, productionmode=None, hypothesis=None, dryrun=
         name = Sample(**kwargs).printname
         if ufloat:
           fmt = "{:26} = ufloat({:14.8g}, {:14.8g})"
-          name = "JHUXS"+name.replace("_", "").replace("HZZ", "HZZ2L2l")
+          name = "JHUXS"+name.replace("_", "").replace("HZZ", "HZZ2e2mu")
         print fmt.format(name, numerator/denominator, 1/denominator**.5)
       else:
         assert False
