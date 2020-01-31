@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 hypotheses = "a1", "a2", "a3", "L1", "L1Zg", "a1a2", "a1a3", "a1L1", "a1L1Zg", "a2a3", "a2L1", "a2L1Zg", "a3L1", "a3L1Zg", "L1L1Zg", "kappa", "kappatilde", "kappakappatilde", "a1kappa", "a2kappa", "a3kappa", "L1kappa", "L1Zgkappa", "a1kappatilde", "a2kappatilde", "a3kappatilde", "L1kappatilde", "L1Zgkappatilde"
-productionmodes = "HZZ", "HWW", "VBF", "ZH", "WH", "HJJ", "ttH", "ggZH"
+productionmodes = "HZZ2e2mu", "HWW", "VBF", "ZH", "WH", "HJJ", "ttH", "ggZH"
 
 if __name__ == "__main__":
   import argparse
@@ -39,7 +39,7 @@ class Sample(object):
     if dryrun:
       result += ["DryRun"]
 
-    if self.productionmode == "HZZ":
+    if self.productionmode == "HZZ2e2mu":
       result += ["Interf=0"]
     elif self.productionmode == "HWW":
       result += ["DecayMode1=11", "DecayMode2=11"]
@@ -158,7 +158,7 @@ class Sample(object):
 
   @property
   def jobname(self):
-    if self.pdfset != "NNPDF30_lo_as_0130" and self.productionmode in ("HZZ", "HWW"):
+    if self.pdfset != "NNPDF30_lo_as_0130" and self.productionmode in ("HZZ2e2mu", "HWW"):
       s = Sample(productionmode=self.productionmode, hypothesis=self.hypothesis, pdfset="NNPDF30_lo_as_0130", index=self.index)
       return s.jobname
     return (self.productionmode + "_" + self.hypothesis + "_" + self.pdfset
@@ -177,7 +177,7 @@ class Sample(object):
     if os.path.exists(self.outputfile): return
     if re.search(r"\b"+self.jobname+r"\b", subprocess.check_output(["bjobs"])): return
 
-    if self.pdfset != "NNPDF30_lo_as_0130" and self.productionmode in ("HZZ", "HWW"):
+    if self.pdfset != "NNPDF30_lo_as_0130" and self.productionmode in ("HZZ2e2mu", "HWW"):
       s = Sample(productionmode=self.productionmode, hypothesis=self.hypothesis, pdfset="NNPDF30_lo_as_0130", index=self.index)
       os.symlink(s.outputfile, self.outputfile)
       return s.submit()
@@ -195,7 +195,7 @@ class Sample(object):
 
     jobtime = "1-0:0:0"
     queue = "shared"
-    if self.productionmode in "HZZ HWW": jobtime = "2-0:0:0"
+    if self.productionmode in "HZZ2e2mu HWW": jobtime = "2-0:0:0"
     if self.productionmode == "ggZH" and "kappa" in self.hypothesis: jobtime = "10-0:0:0"; queue = "unlimited"
 
     if dryrun: print; return
@@ -237,7 +237,7 @@ class Sample(object):
     if productionmode in ("ZH", "WH"):
       if hypothesis == "a1a2": return 200
       return 50
-    if productionmode in ("VBF", "HZZ", "HWW", "HJJ", "ttH", "ggZH"): return 1
+    if productionmode in ("VBF", "HZZ2e2mu", "HWW", "HJJ", "ttH", "ggZH"): return 1
     assert False, (productionmode, hypothesis)
 
 def main(whattodo, ufloat, pdfset, productionmode=None, hypothesis=None, dryrun=False):
@@ -247,7 +247,7 @@ def main(whattodo, ufloat, pdfset, productionmode=None, hypothesis=None, dryrun=
   kwargs = {}
   kwargs["pdfset"] = pdfset
   for kwargs["productionmode"] in productionmodes:
-    if kwargs["productionmode"] in ("HZZ", "HWW") and kwargs["pdfset"] != "NNPDF30_lo_as_0130": continue
+    if kwargs["productionmode"] in ("HZZ2e2mu", "HWW") and kwargs["pdfset"] != "NNPDF30_lo_as_0130": continue
     if kwargs["productionmode"] != productionmode is not None: continue
     for kwargs["hypothesis"] in hypotheses:
       if "L1Zg" in kwargs["hypothesis"] and kwargs["productionmode"] in ("WH", "HWW"): continue
@@ -284,7 +284,7 @@ def main(whattodo, ufloat, pdfset, productionmode=None, hypothesis=None, dryrun=
         name = Sample(**kwargs).printname
         if ufloat:
           fmt = "{:26} = ufloat({:14.8g}, {:14.8g})"
-          name = "JHUXS"+name.replace("_", "").replace("HZZ", "HZZ2e2mu")
+          name = "JHUXS"+name.replace("_", "")
         print fmt.format(name, numerator/denominator, 1/denominator**.5)
       else:
         assert False
